@@ -1,0 +1,84 @@
+services:
+  # 1. PROXY INVERSO (Nginx)
+  proxy:
+    image: nginx:alpine
+    container_name: laravel-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      # Corregido: apunta a la carpeta /nginx en la raíz
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - euskalspot
+
+  # 2. BACKEND (Antes llamado 'web')
+  backend:
+    build:
+      context: ./backend # Busca el Dockerfile en /backend
+    container_name: laravel-apache
+    restart: unless-stopped
+    volumes:
+      - ./backend/src:/var/www/html # El código está en backend/src
+    depends_on:
+      - db
+    networks:
+      - euskalspot
+
+  # 3. FRONTEND (Nuevo servicio para cumplir requisitos)
+  frontend:
+    image: nginx:alpine
+    container_name: euskalspot-front
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    networks:
+      - euskalspot
+
+  # 4. NODE (Para desarrollo de Vite)
+  node:
+    image: node:22
+    container_name: laravel-node
+    working_dir: /var/www/html
+    volumes:
+      - ./backend/src:/var/www/html # Node trabaja sobre el src del backend
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - euskalspot
+
+  # 5. BASE DE DATOS
+  db:
+    image: mysql:8.0
+    container_name: laravel-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 2daw3
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 2daw3
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - euskalspot
+
+  # 6. PHPMYADMIN
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: laravel-phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+    networks:
+      - euskalspot
+
+networks:
+  euskalspot:
+    driver: bridge
+
+volumes:
+  dbdata:
