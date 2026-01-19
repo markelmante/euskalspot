@@ -45,4 +45,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function planes()
+    {
+        return $this->hasMany(Plan::class);
+    }
+    // Para acceder a los registros de la tabla favoritos
+    public function favoritos()
+    {
+        return $this->hasMany(Favorito::class);
+    }
+
+    // Para obtener directamente la lista de Spots que le gustan al usuario
+    public function spotsFavoritos()
+    {
+        return $this->belongsToMany(Spot::class, 'favoritos');
+    }
 }
