@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar Spots - EuskalSpot</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-marker {
+            font-size: 24px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .ui-autocomplete {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo"><a href="/"><img src="/img/Logo.png" alt="Logo"></a></div>
+            <nav class="nav-links"><a href="/" class="btn-login">Inicio</a></nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 20px;">
+        <h1 class="section-title">Explora Euskal Herria</h1>
+
+        <div class="search-container" style="margin-bottom: 30px;">
+            <input type="text" id="buscador-municipio" placeholder="🔍 Escribe un municipio (Sopela, Zarautz, Irun...)"
+                style="width: 100%; padding: 15px; border-radius: 30px; border: 2px solid #2ecc71; font-size: 1.1rem; outline: none;">
+        </div>
+
+        <div id="map"></div>
+
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 40px;">
+            <button class="btn-login" onclick="window.filtrarSpots('todos')">Todos</button>
+            <button class="btn-login" onclick="window.filtrarSpots('playa')">🏄 Surf</button>
+            <button class="btn-login" onclick="window.filtrarSpots('monte')">⛰️ Montaña</button>
+        </div>
+
+        <div id="lista-spots" class="reviews-grid">
+            <p style="text-align: center;">Buscando rincones mágicos...</p>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

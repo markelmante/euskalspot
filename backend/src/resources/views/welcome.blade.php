@@ -16,8 +16,14 @@
                 <img src="{{ asset('img/Logo.png') }}" alt="EuskalSpot Logo">
             </div>
             <nav class="nav-links">
-                <a href="{{ route('login') }}" class="btn-login">Iniciar Sesión</a>
-                <a href="{{ route('register') }}" class="btn-register">Registrarse</a>
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/explorar') }}" class="btn-register">Ir al Explorador</a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn-login">Iniciar Sesión</a>
+                        <a href="{{ route('register') }}" class="btn-register">Registrarse</a>
+                    @endauth
+                @endif
             </nav>
         </div>
     </header>
@@ -39,7 +45,7 @@
             <div class="container hero-content">
                 <h1>Vive <span class="text-green">EuskalSpot</span></h1>
                 <p>Tu comunidad de Surf y Montaña en el País Vasco.</p>
-                <a href="{{ route('register') }}" class="btn-cta">Empezar aventura</a>
+                <a href="/explorar" class="btn-cta">Empezar aventura</a>
             </div>
         </section>
 
