@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EuskalSpot - Surf & Trekking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -45,37 +48,20 @@
             <div class="container hero-content">
                 <h1>Vive <span class="text-green">EuskalSpot</span></h1>
                 <p>Tu comunidad de Surf y Montaña en el País Vasco.</p>
-                <a href="/explorar" class="btn-cta">Empezar aventura</a>
+                <a href="{{ route('login') }}" class="btn-cta">Empezar aventura</a>
             </div>
         </section>
 
         <section class="reviews-section">
             <div class="container">
-                <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="rating">⭐⭐⭐⭐⭐</div>
-                        <p class="review-text">"Gracias a la conexión con Euskalmet, ya no pierdo el tiempo yendo a la
-                            playa si no hay olas. ¡Imprescindible!"</p>
-                        <p class="review-author">— Jon, Surfer en Gros</p>
-                    </div>
+                <h2 class="section-title">Lo que dicen los nuestros Usuarios</h2>
 
-                    <div class="review-card">
-                        <div class="rating">⭐⭐⭐⭐⭐</div>
-                        <p class="review-text">"El planificador semanal es súper intuitivo. Arrastrar mis rutas
-                            favoritas al calendario me ayuda a organizar mis findes en el monte."</p>
-                        <p class="review-author">— Ane, Mendizale</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="rating">⭐⭐⭐⭐</div>
-                        <p class="review-text">"He descubierto spots en Bizkaia que ni conocía gracias al buscador por
-                            municipio. ¡Una comunidad genial!"</p>
-                        <p class="review-author">— Markel, Aventurero</p>
-                    </div>
+                <div id="contenedor-reseñas" class="reviews-grid">
+                    <p style="text-align: center; width: 100%; color: #666;">Cargando opiniones...</p>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="main-footer">

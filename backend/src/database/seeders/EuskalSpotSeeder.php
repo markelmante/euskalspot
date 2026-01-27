@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Municipio;
 use App\Models\Spot;
 use App\Models\Etiqueta;
+use App\Models\Review; // <--- Importamos el modelo Review
 
 class EuskalSpotSeeder extends Seeder
 {
@@ -123,7 +124,7 @@ class EuskalSpotSeeder extends Seeder
             ]
         ];
 
-        // 3. INSERCIÓN
+        // 3. INSERCIÓN DE DATOS
         foreach ($data as $muni => $spots) {
             $m = Municipio::create(['nombre' => $muni]);
             foreach ($spots as $s) {
@@ -140,5 +141,7 @@ class EuskalSpotSeeder extends Seeder
                 }
             }
         }
+        // Esto creará 6 reseñas aleatorias cada vez que se ejecute el seeder
+        Review::factory(6)->create();
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Models\Spot;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExplorerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,34 +11,33 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// 1. Página de bienvenida (Pública)
+// 1. Página de bienvenida (Pública - Landing Page)
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. Redirigir el dashboard al explorador
+// 2. DASHBOARD / PLANIFICADOR (Página principal al loguearse)
+// Antes redirigía a explorar, ahora carga la vista 'dashboard' (Tu agenda)
 Route::get('/dashboard', function () {
-    return redirect()->route('explorar');
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// 3. Tu explorador personalizado (Frontend inyectado)
+// 3. EXPLORADOR (Mapa y Buscador)
 Route::get('/explorar', function () {
     return view('explorar');
-})->middleware(['auth'])->name('explorar');
+})->middleware(['auth', 'verified'])->name('explorar');
 
-// --- NUEVA RUTA API (Dentro de web para compartir la sesión) ---
-// Esta es la ruta que tu script.js llamará: fetch('/api/spots')
-Route::middleware('auth')->get('/api/spots', function () {
-    // Retorna tus spots con sus relaciones (Municipio y Etiquetas)
-    return Spot::with(['municipio', 'etiquetas'])->get();
-});
-
-// 4. Gestión del Perfil (Rutas estándar de Breeze)
+// 4. PERFIL DE USUARIO
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// 5. RUTAS DE AUTENTICACIÓN
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+Route::get('/explorar', [ExplorerController::class, 'index'])->name('explorer');
+// 5. RUTAS DE AUTENTICACIÓN (Login, Register, etc.)
 require __DIR__ . '/auth.php';

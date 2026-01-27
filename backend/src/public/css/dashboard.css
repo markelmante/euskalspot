@@ -1,0 +1,584 @@
+/* =========================================
+   1. VARIABLES Y CONFIGURACIÓN MODERNIZADA
+   ========================================= */
+:root {
+    --dash-primary: #2563EB;
+    /* Azul vibrante */
+    --dash-primary-soft: #DBEAFE;
+    /* Azul muy suave */
+    --dash-bg: #F1F5F9;
+    /* Fondo grisáceo limpio */
+    --dash-card-bg: #FFFFFF;
+    /* Blanco puro */
+    --dash-border: #E2E8F0;
+    /* Bordes sutiles */
+    --dash-text: #64748B;
+    /* Texto secundario */
+    --dark: #1E293B;
+    /* Texto principal */
+
+    /* SOMBRAS MODERNAS */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-blue: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+body {
+    background-color: var(--dash-bg);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    /* Reset básico */
+}
+
+/* =========================================
+   2. NAVEGACIÓN (NAVBAR) - CORREGIDO
+   ========================================= */
+.main-navbar {
+    background: white;
+    border-bottom: 1px solid var(--dash-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+    /* justify-content: start; -> Lo quitamos, usamos margin auto abajo */
+    height: 70px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* LOGO */
+.nav-logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--dark);
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+/* ENLACES CENTRALES (Agenda / Explorador) */
+.desktop-links {
+    display: flex;
+    gap: 20px;
+    /* MAGIA: Esto empuja todo este bloque a la derecha */
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dash-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--dash-primary);
+    background: var(--dash-bg);
+}
+
+.nav-link.active {
+    color: var(--dash-primary);
+    background: var(--dash-primary-soft);
+}
+
+/* ACCIONES (Perfil + Hamburguesa) */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--dark);
+    padding: 5px;
+}
+
+/* PERFIL */
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--dash-primary-soft);
+    border: none;
+    color: var(--dash-primary);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-dropdown-container {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 200px;
+    background: white;
+    border: 1px solid var(--dash-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 8px;
+    z-index: 101;
+}
+
+.hidden {
+    display: none;
+}
+
+.dropdown-header {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--dash-border);
+    margin-bottom: 8px;
+}
+
+.user-name {
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.user-email {
+    color: var(--dash-text);
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: var(--dash-bg);
+}
+
+.text-danger {
+    color: #ef4444;
+}
+
+
+/* =========================================
+   3. MENU LATERAL (SIDEBAR MÓVIL)
+   ========================================= */
+.side-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: flex;
+    /* Para centrar o alinear */
+}
+
+.side-menu-overlay.hidden {
+    display: none;
+}
+
+.side-menu-content {
+    background: white;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.side-link {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.side-link:hover {
+    background: var(--dash-bg);
+}
+
+.side-link.active {
+    background: var(--dash-primary-soft);
+    color: var(--dash-primary);
+}
+
+
+/* =========================================
+   4. LAYOUT PRINCIPAL (PLANNER)
+   ========================================= */
+.dashboard-container {
+    max-width: 1600px;
+    margin: 30px auto;
+    padding: 0 24px;
+}
+
+.planner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.planner-title h2 {
+    font-size: 1.75rem;
+    color: var(--dark);
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.planner-title p {
+    color: var(--dash-text);
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+/* Selector de fecha */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-week {
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--dash-text);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-week:hover {
+    background: var(--dash-bg);
+    color: var(--dark);
+}
+
+.date-picker-input {
+    border: 1px solid transparent;
+    background: var(--dash-bg);
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--dark);
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Estructura Grid */
+.planner-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media(min-width: 1024px) {
+    .planner-layout {
+        grid-template-columns: 300px 1fr;
+    }
+}
+
+/* Sidebar Favoritos */
+.sidebar-favorites {
+    background: var(--dash-card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--dash-border);
+}
+
+/* Tarjetas */
+.spot-card {
+    background: white;
+    border: 1px solid var(--dash-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-xs);
+    cursor: grab;
+    transition: all 0.2s ease;
+}
+
+.spot-card:hover {
+    border-color: var(--dash-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.spot-info strong {
+    display: block;
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.spot-info span {
+    font-size: 0.85rem;
+    color: var(--dash-text);
+}
+
+.btn-add-mobile {
+    background: var(--dash-primary-soft);
+    color: var(--dash-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   5. CALENDARIO
+   ========================================= */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    background: transparent;
+    border: none;
+}
+
+@media(min-width: 768px) {
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 12px;
+    }
+}
+
+.day-column {
+    border: 1px solid var(--dash-border);
+    background: var(--dash-card-bg);
+    border-radius: 16px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.day-column:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+}
+
+.day-header {
+    background: white;
+    padding: 16px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--dash-bg);
+}
+
+.day-name {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--dash-text);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.day-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1;
+}
+
+.badge-today {
+    background: var(--dash-primary);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+/* HOY */
+.today-column {
+    border: 2px solid var(--dash-primary) !important;
+    position: relative;
+    z-index: 5;
+    box-shadow: var(--shadow-blue) !important;
+}
+
+.today-column .day-header {
+    background: var(--dash-primary-soft);
+}
+
+.day-body {
+    flex-grow: 1;
+    padding: 12px;
+    background: var(--dash-card-bg);
+    transition: 0.2s;
+}
+
+.day-body.drag-over {
+    background: var(--dash-primary-soft);
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 41, 59, 0.7);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: var(--shadow-md);
+}
+
+
+/* =========================================
+   6. RESPONSIVIDAD FINAL (MEDIA QUERIES)
+   ========================================= */
+
+/* --- A. ESCRITORIO (PC) --- */
+@media (min-width: 769px) {
+
+    /* Ocultar botón hamburguesa en PC */
+    .hamburger-btn {
+        display: none !important;
+    }
+
+    /* Mostrar enlaces de texto en PC */
+    .desktop-links {
+        display: flex !important;
+    }
+}
+
+/* --- B. MÓVIL (Tablets y Teléfonos) --- */
+@media (max-width: 768px) {
+
+    /* 1. Navbar: Mostrar hamburguesa, ocultar enlaces */
+    .hamburger-btn {
+        display: block;
+    }
+
+    .desktop-links {
+        display: none !important;
+    }
+
+    /* Empujamos las acciones (perfil+hamburguesa) a la derecha */
+    .nav-actions {
+        margin-left: auto;
+    }
+
+
+    /* 2. Calendario Compacto */
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 Columnas */
+        gap: 10px;
+    }
+
+    .day-column:last-child {
+        grid-column: span 2;
+    }
+
+    /* Domingo ancho completo */
+    .day-column {
+        min-height: 140px;
+    }
+
+    /* Menos altura */
+
+    .day-number {
+        font-size: 1.4rem;
+    }
+
+    .day-header {
+        padding: 10px 5px;
+    }
+
+    .day-body {
+        padding: 8px;
+    }
+
+    /* Tarjetas mini */
+    .day-body .spot-card {
+        padding: 8px;
+        margin-bottom: 6px;
+    }
+
+    .day-body .spot-card strong {
+        font-size: 0.85rem;
+    }
+
+    .day-body .spot-card span {
+        font-size: 0.7rem;
+    }
+}
