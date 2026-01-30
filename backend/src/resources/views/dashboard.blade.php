@@ -2,9 +2,13 @@
 
 @section('title', 'Planificador')
 
-@section('content')
-    {{-- CSS de Flatpickr (Calendario moderno) --}}
+{{-- AQUÍ INYECTAMOS EL CSS ESPECÍFICO DEL DASHBOARD --}}
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}?v={{ time() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
+@section('content')
 
     <div class="dashboard-container">
 
@@ -86,9 +90,9 @@
                                 @if($dia['clima_icono'])
                                     <span title="{{ $dia['lugar_clima'] }}"
                                         style="font-size: {{ $dia['es_clima_spot'] ? '1.5rem' : '1.1rem' }}; 
-                                                             cursor: help;
-                                                             transition: all 0.3s ease;
-                                                             {{ $dia['es_clima_spot'] ? 'filter: drop-shadow(0 0 2px gold); transform: scale(1.1);' : 'opacity: 0.7;' }}">
+                                                                             cursor: help;
+                                                                             transition: all 0.3s ease;
+                                                                             {{ $dia['es_clima_spot'] ? 'filter: drop-shadow(0 0 2px gold); transform: scale(1.1);' : 'opacity: 0.7;' }}">
                                         {{ $dia['clima_icono'] }}
                                     </span>
                                 @endif

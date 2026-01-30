@@ -1,0 +1,330 @@
+/* =========================================
+   1. VARIABLES Y BASE
+   ========================================= */
+:root {
+    --primary: #2563EB;
+    --primary-soft: #DBEAFE;
+    --bg-body: #F8FAFC;
+    --bg-white: #FFFFFF;
+    --border: #E2E8F0;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --danger: #EF4444;
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-main);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   2. NAVBAR PRINCIPAL
+   ========================================= */
+.main-navbar {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 64px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.navbar-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; <-- Ya no es necesario estricto porque usaremos margin-left auto */
+}
+
+/* LOGO (Siempre a la izquierda) */
+.nav-logo {
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    margin-right: 20px;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+/* ENLACES ESCRITORIO (Ahora alineados a la derecha) */
+.desktop-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+
+    /* ESTA ES LA CLAVE PARA MOVER TODO A LA DERECHA */
+    margin-left: auto;
+    /* Empuja este bloque lo más a la derecha posible */
+    margin-right: 30px;
+    /* Separación entre los enlaces y el botón de perfil */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+/* ACCIONES (El perfil o botón menú, se quedan a la derecha del todo) */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* =========================================
+   3. BOTONES Y PERFIL
+   ========================================= */
+/* Botón Perfil Desktop */
+.profile-dropdown-container {
+    position: relative;
+}
+
+.profile-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.profile-btn:hover {
+    background: #cbdcfc;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 220px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 6px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-header {
+    padding: 12px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 5px;
+}
+
+.user-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.user-email {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.dropdown-item {
+    display: flex;
+    width: 100%;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.dropdown-item:hover {
+    background: #f1f5f9;
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-danger:hover {
+    background: #fef2f2;
+}
+
+/* Botón Hamburguesa (Móvil) */
+.hamburger-btn {
+    background: none;
+    border: none;
+    padding: 5px;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   4. MENÚ MÓVIL (SIDEBAR)
+   ========================================= */
+.side-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+}
+
+.side-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+.side-menu-content {
+    position: relative;
+    width: 80%;
+    max-width: 300px;
+    background: white;
+    height: 100%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(0);
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.side-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+}
+
+.side-title {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.side-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-muted);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.side-nav-links {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.side-link {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.2s;
+    display: block;
+}
+
+.side-link:hover,
+.side-link.active {
+    background: var(--bg-body);
+    color: var(--primary);
+}
+
+.side-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 0;
+}
+
+.text-danger-mobile {
+    color: var(--danger);
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* =========================================
+   5. RESPONSIVE CONTROL
+   ========================================= */
+/* PC (Pantallas grandes) */
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+/* MÓVIL (Pantallas pequeñas) */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .desktop-links {
+        display: none !important;
+    }
+
+    .navbar-content {
+        justify-content: space-between;
+        /* En móvil, separa Logo e Icono Hamburguesa */
+    }
+}

@@ -1,0 +1,273 @@
+/* public/css/profile.css */
+
+:root {
+    --primary: #4f46e5;
+    /* Indigo moderno */
+    --primary-hover: #4338ca;
+    --text-main: #0f172a;
+    /* Casi negro */
+    --text-muted: #64748b;
+    /* Gris azulado */
+    --border: #e2e8f0;
+    --bg-input: #f8fafc;
+    --danger: #ef4444;
+    --danger-bg: #fef2f2;
+}
+
+body {
+    background-color: #f1f5f9;
+    /* Fondo gris muy suave para toda la web */
+}
+
+/* --- Layout --- */
+.profile-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Figtree', sans-serif;
+}
+
+/* Cabecera */
+.profile-header {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    /* Sombra elegante */
+    border: 1px solid white;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 800;
+    border-radius: 20px;
+    /* Cuadrado redondeado moderno */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.profile-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.profile-title p {
+    margin: 6px 0 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* --- Grid --- */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .profile-grid {
+        grid-template-columns: 2fr 1.2fr;
+        /* Columna ancha y columna estrecha */
+    }
+}
+
+/* --- Tarjetas --- */
+.profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border);
+    margin-bottom: 30px;
+}
+
+.card-header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* --- Formularios --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: var(--bg-input);
+    color: var(--text-main);
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    background: white;
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    /* Anillo de foco suave */
+}
+
+/* --- Botones --- */
+.btn-primary {
+    background: var(--text-main);
+    /* Negro estilo Apple/Vercel */
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    background: #2c3e50;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Feedback mensaje */
+.status-msg {
+    color: #16a34a;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-left: 15px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- Selector Visual (Surf/Monte) --- */
+.visual-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.selector-option input {
+    display: none;
+    /* Ocultar radio real */
+}
+
+.selector-content {
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+}
+
+.selector-emoji {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.selector-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+/* Selected State */
+.selector-option input:checked+.selector-content {
+    border-color: var(--primary);
+    background: #eef2ff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.selector-option input:checked+.selector-content .selector-text {
+    color: var(--primary);
+}
+
+/* --- ZONA DE PELIGRO --- */
+.danger-zone {
+    border-color: #fecaca;
+    background: linear-gradient(to bottom, #fff, #fef2f2);
+}
+
+.danger-zone .card-header h2 {
+    color: #b91c1c;
+}
+
+.danger-zone .card-header {
+    border-bottom-color: #fee2e2;
+}
+
+.btn-danger {
+    background: white;
+    color: var(--danger);
+    border: 1px solid #fca5a5;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.error-text {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}

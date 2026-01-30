@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>EuskalSpot - @yield('title', 'Tu Surf App')</title>
 
     {{-- FUENTES --}}
@@ -11,12 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    {{-- ESTILOS GLOBALES --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ time() }}">
+    {{-- 1. CSS GLOBAL (Navbar, Footer, Reset, Variables) --}}
+    {{-- CAMBIO IMPORTANTE: Aquí cargamos layout.css, no dashboard.css --}}
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?v={{ time() }}">
 
-    {{-- ESTILOS DE NAVEGACIÓN (Asegúrate de tenerlos) --}}
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}?v={{ time() }}">
-
+    {{-- Aquí se inyectarán los CSS específicos de cada vista (ej: dashboard.css) --}}
     @stack('styles')
 </head>
 
@@ -24,24 +25,21 @@
 
     {{--
     LÓGICA DEL MENÚ:
-    1. Si está logueado (@auth) -> Carga tu navigation.blade.php (el menú pro)
+    1. Si está logueado (@auth) -> Carga navigation.blade.php
     2. Si es invitado (@guest) -> Carga un header sencillo
     --}}
 
     @auth
-        {{-- AQUÍ SE INCRUSTA TU ARCHIVO NAVIGATION.BLADE.PHP --}}
         @include('layouts.navigation')
     @endauth
 
     @guest
-        {{-- Header simplificado para invitados (Landing page / Login) --}}
+        {{-- Header simplificado para invitados --}}
         <header class="main-header">
-            <div class="container header-container">
-                <div class="logo">
-                    <a href="/">
-                        Euskal<span style="color:#2563EB;">Spot</span>
-                    </a>
-                </div>
+            <div class="header-container">
+                <a href="/" class="nav-logo" style="margin-right: auto;">
+                    Euskal<span class="text-primary">Spot</span>
+                </a>
                 <nav class="nav-links">
                     <a href="{{ route('login') }}" class="btn-login">Entrar</a>
                     <a href="{{ route('register') }}" class="btn-register">Registrarse</a>
@@ -51,7 +49,7 @@
     @endguest
 
 
-    {{-- CONTENIDO PRINCIPAL (Donde se inyectan las páginas) --}}
+    {{-- CONTENIDO PRINCIPAL --}}
     <main style="min-height: 80vh;">
         @yield('content')
     </main>
@@ -59,7 +57,7 @@
 
     {{-- FOOTER GLOBAL --}}
     <footer class="main-footer">
-        <div class="container footer-container">
+        <div class="footer-container">
             <div class="footer-info">
                 <p>&copy; {{ date('Y') }} <strong>EuskalSpot</strong></p>
             </div>
@@ -70,44 +68,55 @@
         </div>
     </footer>
 
-    {{-- SCRIPTS --}}
-
-    {{-- Script para que funcione el menú móvil y dropdown --}}
+    {{-- SCRIPTS FUNCIONALES GLOBALES (Menú y Dropdowns) --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Solo ejecutar si existen los elementos (para evitar errores en modo invitado)
-            const menuBtn = document.getElementById('menuBtn');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            const sideMenu = document.getElementById('sideMenu');
-            const profileBtn = document.getElementById('profileBtn');
-            const profileDropdown = document.getElementById('profileDropdown');
+        // Función Global para abrir/cerrar perfil (Desktop)
+        window.toggleProfile = function (event) {
+            event.stopPropagation(); // Evita que el click llegue al document
+            const dropdown = document.getElementById('profileDropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('hidden');
+            }
+        }
 
-            // 1. Menú Móvil (Hamburguesa)
-            if (menuBtn && sideMenu && closeMenuBtn) {
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // 1. CERRAR DROPDOWN AL CLICAR FUERA
+            document.addEventListener('click', function (e) {
+                const dropdown = document.getElementById('profileDropdown');
+                const button = document.querySelector('.profile-btn');
+                const dropdownContainer = document.querySelector('.profile-dropdown-container');
+
+                if (dropdown && !dropdown.classList.contains('hidden')) {
+                    // Si el clic no fue dentro del contenedor del dropdown
+                    if (!dropdownContainer.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                }
+            });
+
+            // 2. LÓGICA MENÚ MÓVIL (Hamburguesa)
+            const menuBtn = document.getElementById('menuBtn');
+            const sideMenu = document.getElementById('sideMenu');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+
+            if (menuBtn && sideMenu) {
                 menuBtn.addEventListener('click', () => {
                     sideMenu.classList.remove('hidden');
                 });
+            }
+
+            if (closeMenuBtn && sideMenu) {
                 closeMenuBtn.addEventListener('click', () => {
                     sideMenu.classList.add('hidden');
                 });
-                // Cerrar al hacer click fuera (en el overlay oscuro)
+            }
+
+            // Cerrar menú móvil al hacer click en el fondo oscuro
+            if (sideMenu) {
                 sideMenu.addEventListener('click', (e) => {
                     if (e.target === sideMenu) {
                         sideMenu.classList.add('hidden');
-                    }
-                });
-            }
-
-            // 2. Dropdown de Perfil
-            if (profileBtn && profileDropdown) {
-                profileBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    profileDropdown.classList.toggle('hidden');
-                });
-                // Cerrar al hacer click fuera
-                document.addEventListener('click', (e) => {
-                    if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
-                        profileDropdown.classList.add('hidden');
                     }
                 });
             }
