@@ -1,43 +1,35 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExplorerController;
+use App\Http\Controllers\PlanController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
-// 1. Página de bienvenida (Pública - Landing Page)
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. DASHBOARD / PLANIFICADOR (Página principal al loguearse)
-// Antes redirigía a explorar, ahora carga la vista 'dashboard' (Tu agenda)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// 3. EXPLORADOR (Mapa y Buscador)
-Route::get('/explorar', function () {
-    return view('explorar');
-})->middleware(['auth', 'verified'])->name('explorar');
+    // DASHBOARD & PLANES
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/planes', [PlanController::class, 'store'])->name('planes.store');
+    Route::delete('/planes/{id}', [PlanController::class, 'destroy'])->name('planes.destroy');
 
-// 4. PERFIL DE USUARIO
-Route::middleware('auth')->group(function () {
+    // EXPLORADOR
+    Route::get('/explorar', [ExplorerController::class, 'index'])->name('explorer');
+
+    // RUTAS FAVORITOS
+    // Toggle (Añadir/Quitar desde el mapa)
+    Route::post('/favoritos/toggle/{spot}', [ExplorerController::class, 'toggleFavorite'])->name('favoritos.toggle');
+    // Remove
+    Route::delete('/favoritos/{spot}', [ExplorerController::class, 'removeFavorite'])->name('favoritos.remove');
+
+    // PERFIL
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
-
-Route::get('/explorar', [ExplorerController::class, 'index'])->name('explorer');
-// 5. RUTAS DE AUTENTICACIÓN (Login, Register, etc.)
 require __DIR__ . '/auth.php';

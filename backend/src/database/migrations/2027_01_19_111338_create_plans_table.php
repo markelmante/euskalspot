@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('planes', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('spot_id')->constrained()->onDelete('cascade');
-            $table->enum('dia_semana', ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']);
+            $table->date('fecha');
             $table->timestamps();
+            $table->unique(['user_id', 'spot_id', 'fecha']);
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('planes');
     }
 };

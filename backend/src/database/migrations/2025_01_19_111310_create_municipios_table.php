@@ -5,21 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('municipios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
+            $table->string('nombre');
+            $table->string('provincia'); 
+            $table->decimal('latitud', 10, 8);
+            $table->decimal('longitud', 11, 8);
             $table->timestamps();
+
+            // Evitar duplicados (mismo nombre en misma provincia)
+            $table->unique(['nombre', 'provincia']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('municipios');

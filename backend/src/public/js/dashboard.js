@@ -1,52 +1,205 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // --- DRAG & DROP ---
+
+    console.log("✅ JS Cargado correctamente");
+
+    // ==========================================
+    // 1. DRAG & DROP (Arrastrar y Soltar)
+    // ==========================================
     const draggables = document.querySelectorAll('.draggable-item');
     const dropzones = document.querySelectorAll('.dropzone');
 
-    draggables.forEach(d => {
-        d.addEventListener('dragstart', () => d.classList.add('dragging'));
-        d.addEventListener('dragend', () => d.classList.remove('dragging'));
+    // A) Configurar elementos arrastrables (Spots)
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', (e) => {
+            draggable.classList.add('dragging');
+            // Guardamos el ID del spot
+            e.dataTransfer.setData('text/plain', draggable.dataset.id);
+            e.dataTransfer.effectAllowed = "copy";
+        });
+
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
     });
 
+    // B) Configurar zonas de destino (Días del calendario)
     dropzones.forEach(zone => {
+
+        // 1. OBLIGATORIO: Permitir soltar
         zone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            zone.classList.add('drag-over');
+            e.preventDefault(); // Sin esto, el evento DROP nunca se dispara
+            zone.classList.add('drag-over'); // Añade clase visual (borde o fondo)
         });
-        zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+
+        // 2. Opcional: Limpiar estilo si sale sin soltar
+        zone.addEventListener('dragleave', (e) => {
+            zone.classList.remove('drag-over');
+        });
+
+        // 3. El evento SOLTAR
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
             zone.classList.remove('drag-over');
-            const draggable = document.querySelector('.dragging');
-            if (draggable) createSpotCard(zone, draggable.dataset.name);
+
+            console.log("🔥 SOLTADO (DROP) DETECTADO");
+
+            // Asegurarnos de que tenemos la zona correcta (por si suelta sobre un hijo)
+            const targetZone = e.target.closest('.dropzone');
+            if (!targetZone) {
+                console.error("❌ Error: No se detectó la zona de destino");
+                return;
+            }
+
+            const spotId = e.dataTransfer.getData('text/plain');
+            const fechaDestino = targetZone.dataset.date;
+
+            console.log("📍 Datos recibidos -> Spot ID:", spotId, " | Fecha:", fechaDestino);
+
+            if (spotId && fechaDestino) {
+                savePlanToBackend(spotId, fechaDestino);
+            } else {
+                console.error("⚠️ FALTAN DATOS: Revisa data-id en el spot o data-date en el calendario.");
+            }
         });
     });
+
+    // ==========================================
+    // 2. MODAL (Botón +)
+    // ==========================================
+    const modal = document.getElementById('dayModal');
+
+    // Asignamos a window para que funcione desde el HTML onclick="..."
+    window.openModal = function (name, id) {
+        window.currentSpotId = id;
+        const titleEl = document.getElementById('modalTitle');
+        if (titleEl) titleEl.innerText = 'Añadir: ' + name;
+        if (modal) modal.style.display = 'flex';
+    };
+
+    window.closeModal = function () {
+        if (modal) modal.style.display = 'none';
+        window.currentSpotId = null;
+    };
+
+    window.addToDay = function (fecha) {
+        if (window.currentSpotId && fecha) {
+            savePlanToBackend(window.currentSpotId, fecha);
+            closeModal();
+        } else {
+            console.error("Faltan datos: ID o Fecha incorrectos");
+        }
+    };
+
+    // Cerrar si clic fuera del modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
 });
 
-// --- MODAL ---
-let currentSpotName = '';
+// ==========================================
+// 3. FUNCIONES GLOBALES (AJAX)
+// Estan fuera del DOMContentLoaded o asignadas a window
+// para asegurar que los botones HTML las encuentren.
+// ==========================================
 
-function openModal(name) {
-    currentSpotName = name;
-    document.getElementById('modalTitle').innerText = 'Añadir: ' + name;
-    document.getElementById('dayModal').classList.add('active');
-}
+window.savePlanToBackend = function (spotId, fecha) {
+    if (!window.dashboardConfig) {
+        console.error("❌ Error: window.dashboardConfig no está definido. Revisa tu Blade.");
+        return;
+    }
 
-function closeModal() {
-    document.getElementById('dayModal').classList.remove('active');
-}
+    const { csrfToken, storeUrl } = window.dashboardConfig;
 
-function addToDay(index) {
-    const zone = document.getElementById('day-' + index);
-    createSpotCard(zone, currentSpotName);
-    closeModal();
-}
+    fetch(storeUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+            spot_id: spotId,
+            fecha: fecha
+        })
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Error HTTP: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            if (data.success || data.plan) {
+                console.log("✅ Guardado con éxito. Recargando...");
+                window.location.reload();
+            } else {
+                alert('No se pudo guardar el plan.');
+            }
+        })
+        .catch(error => {
+            console.error('Error AJAX:', error);
+            alert('Hubo un error al conectar con el servidor.');
+        });
+};
 
-// --- CREAR ELEMENTO VISUAL ---
-function createSpotCard(container, name) {
-    const div = document.createElement('div');
-    // Aplicamos estilos directamente al elemento creado dinámicamente o usamos clases
-    div.style.cssText = "background:white; border-left: 4px solid #2563EB; padding:8px; margin-bottom:5px; border-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,0.1); font-size:0.9rem;";
-    div.innerHTML = `<strong>${name}</strong>`;
-    container.appendChild(div);
-}
+window.deletePlan = function (planId) {
+    if (!confirm('¿Seguro que quieres borrar este plan?')) return;
+
+    const { csrfToken } = window.dashboardConfig;
+
+    fetch(`/planes/${planId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const card = document.getElementById(`plan-${planId}`);
+                if (card) card.remove();
+            } else {
+                alert('Error al borrar');
+            }
+        })
+        .catch(err => console.error(err));
+};
+
+window.removeFavorite = function (spotId) {
+    if (!confirm('¿Quitar de favoritos?')) return;
+
+    const card = document.getElementById(`fav-card-${spotId}`);
+    if (card) card.style.opacity = '0.5';
+
+    const { csrfToken } = window.dashboardConfig;
+
+    fetch(`/favoritos/${spotId}`, { // OJO: Revisa si tu ruta requiere el ID del spot
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (card) card.remove();
+                updateFavCount(-1);
+            } else {
+                alert('Error al eliminar.');
+                if (card) card.style.opacity = '1';
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            if (card) card.style.opacity = '1';
+        });
+};
+
+window.updateFavCount = function (change) {
+    const badge = document.querySelector('.badge-count');
+    if (badge) {
+        let current = parseInt(badge.innerText) || 0; // fallback a 0 si es NaN
+        badge.innerText = Math.max(0, current + change);
+    }
+};

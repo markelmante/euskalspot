@@ -1,0 +1,1514 @@
+[
+    {
+        "provincia": "Araba",
+        "nombre": "Alegría-Dulantzi",
+        "latitud": 42.8415,
+        "longitud": -2.5132
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Amurrio",
+        "latitud": 43.0531,
+        "longitud": -3.0003
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Añana",
+        "latitud": 42.8016,
+        "longitud": -2.9822
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Aramaio",
+        "latitud": 43.0520,
+        "longitud": -2.5651
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Armiñón",
+        "latitud": 42.7233,
+        "longitud": -2.8711
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Arraia-Maeztu",
+        "latitud": 42.7383,
+        "longitud": -2.4468
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Arratzua-Ubarrundia",
+        "latitud": 42.8885,
+        "longitud": -2.6393
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Artziniega",
+        "latitud": 43.1206,
+        "longitud": -3.1287
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Asparrena",
+        "latitud": 42.8931,
+        "longitud": -2.3204
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Ayala/Aiara",
+        "latitud": 43.0763,
+        "longitud": -3.0759
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Baños de Ebro/Mañueta",
+        "latitud": 42.5288,
+        "longitud": -2.6781
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Barrundia",
+        "latitud": 42.9192,
+        "longitud": -2.4932
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Berantevilla",
+        "latitud": 42.6819,
+        "longitud": -2.8584
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Bernedo",
+        "latitud": 42.6276,
+        "longitud": -2.4984
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Campezo/Kanpezu",
+        "latitud": 42.6705,
+        "longitud": -2.3503
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Elburgo/Burgelu",
+        "latitud": 42.8837,
+        "longitud": -2.5447
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Elciego",
+        "latitud": 42.5147,
+        "longitud": -2.6186
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Elvillar/Bilar",
+        "latitud": 42.5701,
+        "longitud": -2.5442
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Erriberagoitia/Ribera Alta",
+        "latitud": 42.8028,
+        "longitud": -2.9168
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Harana/Valle de Arana",
+        "latitud": 42.7562,
+        "longitud": -2.3303
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Iruña de Oca/Iruña Oka",
+        "latitud": 42.8167,
+        "longitud": -2.7833
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Iruraiz-Gauna",
+        "latitud": 42.8122,
+        "longitud": -2.5034
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Kripan",
+        "latitud": 42.5904,
+        "longitud": -2.5317
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Kuartango",
+        "latitud": 42.8662,
+        "longitud": -2.8839
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Labastida/Bastida",
+        "latitud": 42.5908,
+        "longitud": -2.7933
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Lagrán",
+        "latitud": 42.6268,
+        "longitud": -2.5839
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Laguardia",
+        "latitud": 42.5531,
+        "longitud": -2.5858
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Lanciego/Lantziego",
+        "latitud": 42.5627,
+        "longitud": -2.5118
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Lantarón",
+        "latitud": 42.7169,
+        "longitud": -2.9567
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Lapuebla de Labarca",
+        "latitud": 42.4952,
+        "longitud": -2.5714
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Laudio/Llodio",
+        "latitud": 43.1444,
+        "longitud": -2.9619
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Legutio",
+        "latitud": 42.9806,
+        "longitud": -2.6467
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Leza",
+        "latitud": 42.5639,
+        "longitud": -2.6322
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Moreda de Álava",
+        "latitud": 42.5238,
+        "longitud": -2.4081
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Navaridas",
+        "latitud": 42.5447,
+        "longitud": -2.6253
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Okondo",
+        "latitud": 43.1539,
+        "longitud": -3.0211
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Oyón-Oion",
+        "latitud": 42.5061,
+        "longitud": -2.4369
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Peñacerrada-Urizaharra",
+        "latitud": 42.6445,
+        "longitud": -2.7139
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Ribera Baja/Erribera Beitia",
+        "latitud": 42.6738,
+        "longitud": -2.9039
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Salvatierra/Agurain",
+        "latitud": 42.8517,
+        "longitud": -2.3817
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Samaniego",
+        "latitud": 42.5681,
+        "longitud": -2.6792
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "San Millán/Donemiliaga",
+        "latitud": 42.8661,
+        "longitud": -2.3753
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Urkabustaiz",
+        "latitud": 42.9517,
+        "longitud": -2.9022
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Valdegovía/Gaubea",
+        "latitud": 42.8483,
+        "longitud": -3.0978
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Villabuena de Álava/Eskuernaga",
+        "latitud": 42.5475,
+        "longitud": -2.6631
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Vitoria-Gasteiz",
+        "latitud": 42.8467,
+        "longitud": -2.6716
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Yécora/Iekora",
+        "latitud": 42.5683,
+        "longitud": -2.4697
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Zalduondo",
+        "latitud": 42.8864,
+        "longitud": -2.3486
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Zambrana",
+        "latitud": 42.6617,
+        "longitud": -2.8797
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Zigoitia",
+        "latitud": 42.9647,
+        "longitud": -2.7236
+    },
+    {
+        "provincia": "Araba",
+        "nombre": "Zuia",
+        "latitud": 42.9556,
+        "longitud": -2.8222
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Abadiño",
+        "latitud": 43.1511,
+        "longitud": -2.6078
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Abanto y Ciérvana-Abanto Zierbena",
+        "latitud": 43.3142,
+        "longitud": -3.0694
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ajangiz",
+        "latitud": 43.3006,
+        "longitud": -2.6681
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Alonsotegi",
+        "latitud": 43.2464,
+        "longitud": -2.9867
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Amorebieta-Etxano",
+        "latitud": 43.2197,
+        "longitud": -2.7317
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Amoroto",
+        "latitud": 43.3308,
+        "longitud": -2.5133
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arakaldo",
+        "latitud": 43.1583,
+        "longitud": -2.9231
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arantzazu",
+        "latitud": 43.1589,
+        "longitud": -2.7936
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Areatza",
+        "latitud": 43.1231,
+        "longitud": -2.7694
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arrankudiaga",
+        "latitud": 43.1903,
+        "longitud": -2.9264
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arratzu",
+        "latitud": 43.3075,
+        "longitud": -2.6417
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arrieta",
+        "latitud": 43.3428,
+        "longitud": -2.7725
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Arrigorriaga",
+        "latitud": 43.2425,
+        "longitud": -2.8953
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Artea",
+        "latitud": 43.1311,
+        "longitud": -2.7842
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Artzentales",
+        "latitud": 43.2394,
+        "longitud": -3.2281
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Atxondo",
+        "latitud": 43.1228,
+        "longitud": -2.5997
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Aulesti",
+        "latitud": 43.2972,
+        "longitud": -2.5622
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Bakio",
+        "latitud": 43.4286,
+        "longitud": -2.8122
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Balmaseda",
+        "latitud": 43.1953,
+        "longitud": -3.1942
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Barakaldo",
+        "latitud": 43.2965,
+        "longitud": -2.9863
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Barrika",
+        "latitud": 43.4072,
+        "longitud": -2.9614
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Basauri",
+        "latitud": 43.2356,
+        "longitud": -2.8889
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Bedia",
+        "latitud": 43.2094,
+        "longitud": -2.8106
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Berango",
+        "latitud": 43.3664,
+        "longitud": -2.9961
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Bermeo",
+        "latitud": 43.4209,
+        "longitud": -2.7215
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Berriatua",
+        "latitud": 43.3117,
+        "longitud": -2.4667
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Berriz",
+        "latitud": 43.1728,
+        "longitud": -2.5769
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Bilbao",
+        "latitud": 43.2630,
+        "longitud": -2.9350
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Busturia",
+        "latitud": 43.3853,
+        "longitud": -2.6967
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Derio",
+        "latitud": 43.2917,
+        "longitud": -2.8872
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Dima",
+        "latitud": 43.1517,
+        "longitud": -2.7486
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Durango",
+        "latitud": 43.1691,
+        "longitud": -2.6322
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ea",
+        "latitud": 43.3814,
+        "longitud": -2.5853
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Elantxobe",
+        "latitud": 43.4036,
+        "longitud": -2.6397
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Elorrio",
+        "latitud": 43.1294,
+        "longitud": -2.5392
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Erandio",
+        "latitud": 43.3039,
+        "longitud": -2.9753
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ereño",
+        "latitud": 43.3558,
+        "longitud": -2.6111
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ermua",
+        "latitud": 43.1861,
+        "longitud": -2.5022
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Errigoiti",
+        "latitud": 43.3242,
+        "longitud": -2.7264
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Etxebarri",
+        "latitud": 43.2492,
+        "longitud": -2.8944
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Etxebarria",
+        "latitud": 43.2547,
+        "longitud": -2.4764
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Forua",
+        "latitud": 43.3267,
+        "longitud": -2.6739
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Fruiz",
+        "latitud": 43.3306,
+        "longitud": -2.7878
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Galdakao",
+        "latitud": 43.2306,
+        "longitud": -2.8461
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Galdames",
+        "latitud": 43.2636,
+        "longitud": -3.1114
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gamiz-Fika",
+        "latitud": 43.3150,
+        "longitud": -2.8253
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Garai",
+        "latitud": 43.1931,
+        "longitud": -2.6106
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gatika",
+        "latitud": 43.3644,
+        "longitud": -2.8731
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gautegiz Arteaga",
+        "latitud": 43.3622,
+        "longitud": -2.6517
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gernika-Lumo",
+        "latitud": 43.3142,
+        "longitud": -2.6797
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Getxo",
+        "latitud": 43.3444,
+        "longitud": -3.0075
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gizaburuaga",
+        "latitud": 43.3325,
+        "longitud": -2.5319
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gordexola",
+        "latitud": 43.1794,
+        "longitud": -3.0725
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Gorliz",
+        "latitud": 43.4147,
+        "longitud": -2.9344
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Güeñes",
+        "latitud": 43.2125,
+        "longitud": -3.0944
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ibarrangelu",
+        "latitud": 43.3883,
+        "longitud": -2.6375
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Igorre",
+        "latitud": 43.1644,
+        "longitud": -2.7781
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ispaster",
+        "latitud": 43.3475,
+        "longitud": -2.5469
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Iurreta",
+        "latitud": 43.1783,
+        "longitud": -2.6347
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Izurtza",
+        "latitud": 43.1558,
+        "longitud": -2.6394
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Karrantza Harana/Valle de Carranza",
+        "latitud": 43.2056,
+        "longitud": -3.3664
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Kortezubi",
+        "latitud": 43.3400,
+        "longitud": -2.6550
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Lanestosa",
+        "latitud": 43.2208,
+        "longitud": -3.4428
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Larrabetzu",
+        "latitud": 43.2611,
+        "longitud": -2.7933
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Laukiz",
+        "latitud": 43.3517,
+        "longitud": -2.9150
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Leioa",
+        "latitud": 43.3283,
+        "longitud": -2.9839
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Lekeitio",
+        "latitud": 43.3636,
+        "longitud": -2.5028
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Lemoa",
+        "latitud": 43.2039,
+        "longitud": -2.7775
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Lemoiz",
+        "latitud": 43.4150,
+        "longitud": -2.8997
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Lezama",
+        "latitud": 43.2725,
+        "longitud": -2.8361
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Loiu",
+        "latitud": 43.3161,
+        "longitud": -2.9389
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mallabia",
+        "latitud": 43.1894,
+        "longitud": -2.5317
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mañaria",
+        "latitud": 43.1378,
+        "longitud": -2.6606
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Markina-Xemein",
+        "latitud": 43.2672,
+        "longitud": -2.4967
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Maruri-Jatabe",
+        "latitud": 43.3853,
+        "longitud": -2.8617
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mendata",
+        "latitud": 43.2458,
+        "longitud": -2.6375
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mendexa",
+        "latitud": 43.3606,
+        "longitud": -2.4839
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Meñaka",
+        "latitud": 43.3667,
+        "longitud": -2.8028
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Morga",
+        "latitud": 43.2917,
+        "longitud": -2.7600
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mundaka",
+        "latitud": 43.4078,
+        "longitud": -2.6989
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Mungia",
+        "latitud": 43.3542,
+        "longitud": -2.8469
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Munitibar-Arbatzegi Gerrikaitz",
+        "latitud": 43.2536,
+        "longitud": -2.5897
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Murueta",
+        "latitud": 43.3517,
+        "longitud": -2.6806
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Muskiz",
+        "latitud": 43.3236,
+        "longitud": -3.1250
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Muxika",
+        "latitud": 43.2725,
+        "longitud": -2.6953
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Nabarniz",
+        "latitud": 43.3325,
+        "longitud": -2.5886
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ondarroa",
+        "latitud": 43.3217,
+        "longitud": -2.4206
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Orozko",
+        "latitud": 43.1075,
+        "longitud": -2.9114
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ortuella",
+        "latitud": 43.3089,
+        "longitud": -3.0569
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Otxandio",
+        "latitud": 43.0400,
+        "longitud": -2.6561
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Plentzia",
+        "latitud": 43.4072,
+        "longitud": -2.9469
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Portugalete",
+        "latitud": 43.3197,
+        "longitud": -3.0208
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Santurtzi",
+        "latitud": 43.3289,
+        "longitud": -3.0308
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Sestao",
+        "latitud": 43.3094,
+        "longitud": -2.9903
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Sondika",
+        "latitud": 43.2981,
+        "longitud": -2.9275
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Sopela",
+        "latitud": 43.3811,
+        "longitud": -2.9819
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Sopuerta",
+        "latitud": 43.2625,
+        "longitud": -3.1678
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Sukarrieta",
+        "latitud": 43.3956,
+        "longitud": -2.6958
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Trucios-Turtzioz",
+        "latitud": 43.2839,
+        "longitud": -3.2797
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ubide",
+        "latitud": 43.0258,
+        "longitud": -2.6903
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ugao-Miraballes",
+        "latitud": 43.2136,
+        "longitud": -2.9017
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Urduliz",
+        "latitud": 43.3800,
+        "longitud": -2.9567
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Urduña/Orduña",
+        "latitud": 42.9936,
+        "longitud": -2.9444
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Usansolo",
+        "latitud": 43.2289,
+        "longitud": -2.8361
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Valle de Trápaga-Trapagaran",
+        "latitud": 43.3044,
+        "longitud": -3.0375
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zaldibar",
+        "latitud": 43.1717,
+        "longitud": -2.5458
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zalla",
+        "latitud": 43.2150,
+        "longitud": -3.1286
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zamudio",
+        "latitud": 43.2861,
+        "longitud": -2.8653
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zaratamo",
+        "latitud": 43.2164,
+        "longitud": -2.8803
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zeanuri",
+        "latitud": 43.0997,
+        "longitud": -2.7508
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zeberio",
+        "latitud": 43.1539,
+        "longitud": -2.8469
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Zierbena",
+        "latitud": 43.3517,
+        "longitud": -3.0847
+    },
+    {
+        "provincia": "Bizkaia",
+        "nombre": "Ziortza-Bolibar",
+        "latitud": 43.2472,
+        "longitud": -2.5519
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Abaltzisketa",
+        "latitud": 43.0478,
+        "longitud": -2.1097
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Aduna",
+        "latitud": 43.2047,
+        "longitud": -2.0506
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Aia",
+        "latitud": 43.2358,
+        "longitud": -2.1481
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Aizarnazabal",
+        "latitud": 43.2575,
+        "longitud": -2.2353
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Albiztur",
+        "latitud": 43.1258,
+        "longitud": -2.1333
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Alegia",
+        "latitud": 43.0989,
+        "longitud": -2.1017
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Alkiza",
+        "latitud": 43.1736,
+        "longitud": -2.1094
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Altzaga",
+        "latitud": 43.0606,
+        "longitud": -2.1558
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Altzo",
+        "latitud": 43.1008,
+        "longitud": -2.0839
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Amezketa",
+        "latitud": 43.0536,
+        "longitud": -2.0894
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Andoain",
+        "latitud": 43.2192,
+        "longitud": -2.0208
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Anoeta",
+        "latitud": 43.1611,
+        "longitud": -2.0722
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Antzuola",
+        "latitud": 43.1006,
+        "longitud": -2.3789
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Arama",
+        "latitud": 43.0628,
+        "longitud": -2.1644
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Aretxabaleta",
+        "latitud": 43.0353,
+        "longitud": -2.5028
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Arrasate/Mondragón",
+        "latitud": 43.0645,
+        "longitud": -2.4883
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Asteasu",
+        "latitud": 43.1925,
+        "longitud": -2.0950
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Astigarraga",
+        "latitud": 43.2808,
+        "longitud": -1.9483
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ataun",
+        "latitud": 42.9794,
+        "longitud": -2.1794
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Azkoitia",
+        "latitud": 43.1764,
+        "longitud": -2.3139
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Azpeitia",
+        "latitud": 43.1833,
+        "longitud": -2.2667
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Baliarrain",
+        "latitud": 43.0722,
+        "longitud": -2.1272
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Beasain",
+        "latitud": 43.0474,
+        "longitud": -2.2023
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Beizama",
+        "latitud": 43.1367,
+        "longitud": -2.2089
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Belauntza",
+        "latitud": 43.1169,
+        "longitud": -2.0522
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Berastegi",
+        "latitud": 43.1233,
+        "longitud": -1.9797
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Bergara",
+        "latitud": 43.1186,
+        "longitud": -2.4124
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Berrobi",
+        "latitud": 43.1436,
+        "longitud": -2.0278
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Bidania-Goiatz",
+        "latitud": 43.1397,
+        "longitud": -2.1583
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Deba",
+        "latitud": 43.2936,
+        "longitud": -2.3533
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Donostia/San Sebastián",
+        "latitud": 43.3183,
+        "longitud": -1.9812
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Eibar",
+        "latitud": 43.1843,
+        "longitud": -2.4725
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Elduain",
+        "latitud": 43.1417,
+        "longitud": -2.0006
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Elgeta",
+        "latitud": 43.1369,
+        "longitud": -2.4869
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Elgoibar",
+        "latitud": 43.2144,
+        "longitud": -2.4161
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Errenteria",
+        "latitud": 43.3119,
+        "longitud": -1.9025
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Errezil",
+        "latitud": 43.1656,
+        "longitud": -2.2356
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Eskoriatza",
+        "latitud": 43.0169,
+        "longitud": -2.5272
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ezkio-Itsaso",
+        "latitud": 43.0847,
+        "longitud": -2.2742
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Gabiria",
+        "latitud": 43.0519,
+        "longitud": -2.2789
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Gaintza",
+        "latitud": 43.0539,
+        "longitud": -2.1331
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Gaztelu",
+        "latitud": 43.1175,
+        "longitud": -2.0225
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Getaria",
+        "latitud": 43.3015,
+        "longitud": -2.2045
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Hernani",
+        "latitud": 43.2667,
+        "longitud": -1.9761
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Hernialde",
+        "latitud": 43.1558,
+        "longitud": -2.0853
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Hondarribia",
+        "latitud": 43.3626,
+        "longitud": -1.7915
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ibarra",
+        "latitud": 43.1297,
+        "longitud": -2.0644
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Idiazabal",
+        "latitud": 43.0131,
+        "longitud": -2.2339
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ikaztegieta",
+        "latitud": 43.0956,
+        "longitud": -2.1228
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Irun",
+        "latitud": 43.3390,
+        "longitud": -1.7896
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Irura",
+        "latitud": 43.1678,
+        "longitud": -2.0664
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Itsasondo",
+        "latitud": 43.0675,
+        "longitud": -2.1650
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Larraul",
+        "latitud": 43.1883,
+        "longitud": -2.1022
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Lasarte-Oria",
+        "latitud": 43.2678,
+        "longitud": -2.0203
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Lazkao",
+        "latitud": 43.0361,
+        "longitud": -2.1867
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Leaburu",
+        "latitud": 43.1258,
+        "longitud": -2.0606
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Legazpi",
+        "latitud": 43.0533,
+        "longitud": -2.3339
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Legorreta",
+        "latitud": 43.0850,
+        "longitud": -2.1469
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Leintz-Gatzaga",
+        "latitud": 42.9867,
+        "longitud": -2.5656
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Lezo",
+        "latitud": 43.3217,
+        "longitud": -1.8978
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Lizartza",
+        "latitud": 43.1042,
+        "longitud": -2.0353
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Mendaro",
+        "latitud": 43.2544,
+        "longitud": -2.3853
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Mutiloa",
+        "latitud": 43.0236,
+        "longitud": -2.2717
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Mutriku",
+        "latitud": 43.3081,
+        "longitud": -2.3861
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Olaberria",
+        "latitud": 43.0456,
+        "longitud": -2.2047
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Oñati",
+        "latitud": 43.0325,
+        "longitud": -2.4136
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ordizia",
+        "latitud": 43.0531,
+        "longitud": -2.1794
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Orendain",
+        "latitud": 43.0789,
+        "longitud": -2.1158
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Orexa",
+        "latitud": 43.1103,
+        "longitud": -2.0117
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Orio",
+        "latitud": 43.2764,
+        "longitud": -2.1287
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Ormaiztegi",
+        "latitud": 43.0436,
+        "longitud": -2.2539
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Oiartzun",
+        "latitud": 43.2981,
+        "longitud": -1.8600
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Pasaia",
+        "latitud": 43.3256,
+        "longitud": -1.9250
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Segura",
+        "latitud": 43.0089,
+        "longitud": -2.2519
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Soraluze-Placencia de las Armas",
+        "latitud": 43.1750,
+        "longitud": -2.4117
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Tolosa",
+        "latitud": 43.1376,
+        "longitud": -2.0792
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Urnieta",
+        "latitud": 43.2467,
+        "longitud": -1.9917
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Urretxu",
+        "latitud": 43.0931,
+        "longitud": -2.3139
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Usurbil",
+        "latitud": 43.2711,
+        "longitud": -2.0436
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Villabona",
+        "latitud": 43.1872,
+        "longitud": -2.0525
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zaldibia",
+        "latitud": 43.0369,
+        "longitud": -2.1489
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zarautz",
+        "latitud": 43.2844,
+        "longitud": -2.1721
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zegama",
+        "latitud": 42.9767,
+        "longitud": -2.2906
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zerain",
+        "latitud": 43.0119,
+        "longitud": -2.2731
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zestoa",
+        "latitud": 43.2392,
+        "longitud": -2.2583
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zizurkil",
+        "latitud": 43.1972,
+        "longitud": -2.0750
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zumaia",
+        "latitud": 43.2974,
+        "longitud": -2.2562
+    },
+    {
+        "provincia": "Gipuzkoa",
+        "nombre": "Zumarraga",
+        "latitud": 43.0864,
+        "longitud": -2.3169
+    }
+]

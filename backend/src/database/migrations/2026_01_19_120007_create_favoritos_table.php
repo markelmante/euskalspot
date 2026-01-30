@@ -15,8 +15,6 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('spot_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-
-            // Evita que un usuario tenga el mismo favorito dos veces
             $table->unique(['user_id', 'spot_id']);
         });
     }

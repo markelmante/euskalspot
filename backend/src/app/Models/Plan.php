@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
-    protected $table = 'planes'; // Importante porque el plural de Plan es Planes
+    protected $table = 'planes';
+    protected $fillable = ['user_id', 'spot_id', 'fecha'];
 
-    protected $fillable = ['user_id', 'spot_id', 'dia_semana'];
+    // Esto convierte automáticamente el string de la BD a un objeto fecha
+    protected $casts = [
+        'fecha' => 'date',
+    ];
 
     public function user()
     {

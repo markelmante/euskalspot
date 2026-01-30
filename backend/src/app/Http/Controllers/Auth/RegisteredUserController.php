@@ -5,51 +5,47 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Municipio;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View; // Importante para la vista
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     * (ESTA ES LA FUNCIÓN QUE TE FALTABA)
-     */
     public function create(): View
     {
-        return view('auth.register');
+        // 1. Obtenemos las Provincias únicas para el primer desplegable
+        $provincias = Municipio::select('provincia')->distinct()->pluck('provincia');
+
+        // 2. Obtenemos todos los municipios (necesitamos la provincia para filtrar en JS)
+        $municipios = Municipio::select('id', 'nombre', 'provincia')->orderBy('nombre', 'asc')->get();
+
+        return view('auth.register', compact('municipios', 'provincias'));
     }
 
-    /**
-     * Handle an incoming registration request.
-     */
     public function store(Request $request)
     {
-        // 1. Validamos los datos
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'municipio' => ['nullable', 'string', 'max:100'],
+            'municipio' => ['required', 'string', 'max:100'], // Ahora es obligatorio elegir uno válido
             'preferencia' => ['nullable', 'string', 'in:surf,monte,ambos'],
         ]);
 
-        // 2. Creamos el Usuario
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // 3. Creamos el Perfil asociado
         Profile::create([
             'user_id' => $user->id,
-            // Mapeo: Base de datos <= Formulario
             'municipio_residencia' => $request->municipio,
-            'preferencia' => $request->preferencia,
+            'preferencia' => $request->preferencia ?? 'ambos',
         ]);
 
         event(new Registered($user));

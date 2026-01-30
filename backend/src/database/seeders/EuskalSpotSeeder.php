@@ -6,13 +6,13 @@ use Illuminate\Database\Seeder;
 use App\Models\Municipio;
 use App\Models\Spot;
 use App\Models\Etiqueta;
-use App\Models\Review; // <--- Importamos el modelo Review
 
 class EuskalSpotSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. ETIQUETAS
+        // 1. CREAR ETIQUETAS
+        // Usamos firstOrCreate para que no falle si ya existen
         $tags = [
             'duchas' => Etiqueta::firstOrCreate(['nombre' => 'Duchas']),
             'parking' => Etiqueta::firstOrCreate(['nombre' => 'Parking']),
@@ -23,7 +23,7 @@ class EuskalSpotSeeder extends Seeder
             'surf_escuela' => Etiqueta::firstOrCreate(['nombre' => 'Escuela de Surf']),
         ];
 
-        // 2. DATASET: 25 PLAYAS + 25 MONTES (Total 50)
+        // 2. DATOS DE LOS SPOTS
         $data = [
             // --- GIPUZKOA ---
             'Donostia' => [
@@ -101,7 +101,7 @@ class EuskalSpotSeeder extends Seeder
                 ['n' => 'Monte Ermua', 't' => 'monte', 'lat' => 43.4350, 'lng' => -2.9450, 'd' => 'Ruta por los acantilados del faro.', 'tg' => ['parking', 'facil']]
             ],
 
-            // --- ARABA (Interior: Playas de Embalse y Montes) ---
+            // --- ARABA ---
             'Legutio' => [
                 ['n' => 'Playa de Landa', 't' => 'playa', 'lat' => 42.9600, 'lng' => -2.5900, 'd' => 'Playa de interior con bandera azul.', 'tg' => ['duchas', 'facil']],
                 ['n' => 'Monte Albertia', 't' => 'monte', 'lat' => 42.9800, 'lng' => -2.6100, 'd' => 'Bosques cargados de historia.', 'tg' => ['facil']]
@@ -124,24 +124,39 @@ class EuskalSpotSeeder extends Seeder
             ]
         ];
 
-        // 3. INSERCIÓN DE DATOS
-        foreach ($data as $muni => $spots) {
-            $m = Municipio::create(['nombre' => $muni]);
+        // 3. RECORRER Y CREAR
+        foreach ($data as $muniKey => $spots) {
+
+            // BUSCAMOS EL MUNICIPIO (NO CREAMOS NADA, SOLO BUSCAMOS)
+            // Usamos 'like' para flexibilidad (Ej: Busca 'Donostia' y encuentra 'Donostia / San Sebastián')
+            $municipio = Municipio::where('nombre', 'like', "%{$muniKey}%")->first();
+
+            // Si no encuentra el municipio (quizás no está en el JSON cargado antes), nos lo saltamos
+            if (!$municipio) {
+                // Puedes descomentar esto si quieres ver en consola qué falla:
+                // $this->command->warn("Saltando {$muniKey}: Municipio no encontrado.");
+                continue;
+            }
+
             foreach ($spots as $s) {
+                // CREAMOS EL SPOT (Sin user_id, ni provincia, ni cosas raras)
                 $newSpot = Spot::create([
                     'nombre' => $s['n'],
                     'tipo' => $s['t'],
-                    'municipio_id' => $m->id,
+                    'municipio_id' => $municipio->id, // El ID que encontramos arriba
                     'descripcion' => $s['d'],
                     'latitud' => $s['lat'],
                     'longitud' => $s['lng'],
+                    // 'foto' es nullable, así que no hace falta ponerlo si no tenemos
                 ]);
+
+                // ASIGNAR ETIQUETAS
                 foreach ($s['tg'] as $tName) {
-                    $newSpot->etiquetas()->attach($tags[$tName]->id);
+                    if (isset($tags[$tName])) {
+                        $newSpot->etiquetas()->attach($tags[$tName]->id);
+                    }
                 }
             }
         }
-        // Esto creará 6 reseñas aleatorias cada vez que se ejecute el seeder
-        Review::factory(6)->create();
     }
 }
