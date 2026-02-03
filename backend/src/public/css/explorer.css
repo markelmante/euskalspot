@@ -3,7 +3,11 @@
    ========================================= */
 :root {
     --dash-primary: #2563EB;
+    /* Azul Playa */
     --dash-primary-soft: #DBEAFE;
+    --dash-monte: #10B981;
+    /* Verde Monte */
+    --dash-monte-soft: #D1FAE5;
     --dash-bg: #F1F5F9;
     --dash-card-bg: #FFFFFF;
     --dash-border: #E2E8F0;
@@ -19,7 +23,6 @@
 .explorer-container {
     display: flex;
     height: calc(100vh - 70px);
-    /* Altura total menos navbar */
     overflow: hidden;
     position: relative;
     background: var(--dash-bg);
@@ -66,6 +69,16 @@
     font-weight: 600;
     color: var(--dash-text);
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-filter svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    opacity: 0.7;
 }
 
 .btn-filter:hover {
@@ -74,10 +87,14 @@
 }
 
 .btn-filter.active {
-    background: var(--dash-primary);
+    background: var(--dark);
     color: white;
-    border-color: var(--dash-primary);
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    border-color: var(--dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-filter.active svg {
+    opacity: 1;
 }
 
 /* Lista de Spots */
@@ -108,17 +125,52 @@
     box-shadow: var(--shadow-md);
 }
 
-.spot-info h4 {
-    margin: 0 0 4px 0;
+.spot-info-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.spot-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bg-playa-soft {
+    background-color: var(--dash-primary-soft);
+    color: var(--dash-primary);
+}
+
+.bg-monte-soft {
+    background-color: var(--dash-monte-soft);
+    color: var(--dash-monte);
+}
+
+.spot-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.spot-text h4 {
+    margin: 0 0 2px 0;
     font-size: 0.95rem;
     color: var(--dark);
     font-weight: 700;
 }
 
-.spot-info p {
+.spot-text p {
     margin: 0;
     font-size: 0.8rem;
     color: var(--dash-text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* =========================================
@@ -130,10 +182,8 @@
     width: 100%;
     z-index: 1;
     background: #e2e8f0;
-    /* Color de carga */
 }
 
-/* Estilos de los Marcadores (Pins) */
 .custom-marker {
     display: flex;
     align-items: center;
@@ -141,26 +191,36 @@
     border-radius: 50%;
     border: 2px solid white;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    font-size: 1.2rem;
     transition: transform 0.2s;
 }
 
+.custom-marker svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
+
 .custom-marker:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
     z-index: 999 !important;
 }
 
 .marker-playa {
     background-color: var(--dash-primary);
-    color: white;
 }
 
 .marker-monte {
-    background-color: #10B981;
-    color: white;
+    background-color: var(--dash-monte);
 }
 
-/* Botón Favorito (Corazón) */
+.text-playa {
+    color: var(--dash-primary);
+}
+
+.text-monte {
+    color: var(--dash-monte);
+}
+
 .btn-fav-action {
     background: var(--dash-bg);
     border: none;
@@ -173,6 +233,7 @@
     cursor: pointer;
     transition: 0.2s;
     color: #cbd5e1;
+    flex-shrink: 0;
 }
 
 .btn-fav-action:hover {
@@ -192,18 +253,199 @@
 }
 
 /* =========================================
-   4. RESPONSIVE
+   4. NUEVAS FUNCIONALIDADES (Buscador y Drawer)
+   ========================================= */
+
+/* Barra de Busqueda */
+.search-container {
+    padding: 0 0 15px 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.search-input:focus {
+    border-color: var(--dash-primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Panel Lateral de Detalles (Drawer) */
+.spot-drawer {
+    position: absolute;
+    top: 0;
+    right: -450px;
+    /* Oculto por defecto */
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.spot-drawer.open {
+    right: 0;
+}
+
+/* Contenido del Drawer */
+.drawer-header {
+    position: relative;
+    height: 220px;
+    background-color: #cbd5e1;
+    background-size: cover;
+    background-position: center;
+}
+
+.btn-close-drawer {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    backdrop-filter: blur(4px);
+    transition: 0.2s;
+}
+
+.btn-close-drawer:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.drawer-body {
+    padding: 25px;
+}
+
+.drawer-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0 0 5px 0;
+}
+
+.drawer-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.drawer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 25px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+/* Widget del Tiempo */
+.weather-widget {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.weather-temp {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.weather-info {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* --- BOTONES DEL DRAWER (NUEVO) --- */
+.drawer-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-details-full {
+    flex: 2;
+    /* Ocupa más espacio */
+    background: var(--dark);
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-details-full:hover {
+    background: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-directions-map {
+    flex: 1;
+    /* Botón más pequeño */
+    background: white;
+    color: var(--dark);
+    border: 1px solid #cbd5e1;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-directions-map:hover {
+    background: #f1f5f9;
+    border-color: var(--dark);
+}
+
+/* =========================================
+   5. RESPONSIVE
    ========================================= */
 @media (max-width: 768px) {
     .explorer-container {
         flex-direction: column-reverse;
-        /* Mapa arriba, lista abajo en móvil */
+        height: calc(100vh - 60px);
+        /* Ajuste para header móvil */
     }
 
     .sidebar-map {
         width: 100%;
         height: 45%;
-        /* Lista ocupa menos de la mitad */
         border-right: none;
         border-top: 1px solid var(--dash-border);
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
@@ -211,17 +453,15 @@
 
     #map {
         height: 55%;
-        /* Mapa ocupa más espacio */
     }
 
     .filters-section {
-        padding: 12px;
-        overflow-x: auto;
+        padding: 15px;
     }
 
-    .filter-group {
-        flex-wrap: nowrap;
-        /* Scroll horizontal en filtros */
-        padding-bottom: 5px;
+    /* Drawer a pantalla completa en móvil */
+    .spot-drawer {
+        width: 100%;
+        right: -100%;
     }
 }

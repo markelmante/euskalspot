@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,12 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Llamamos a los seeders en orden
         $this->call([
-                // 1. Primero cargamos los datos de referencia (Los 252 municipios)
-            MunicipioSeeder::class,
-
-                // 2. Después cargamos tus datos de prueba (Spots, etc.)
-            EuskalSpotSeeder::class,
+            MunicipioSeeder::class,  // 1. Primero municipios (necesarios para los spots)
+            EuskalSpotSeeder::class, // 2. Luego los spots
+            ReviewSeeder::class,     // 3. Finalmente las reseñas
         ]);
     }
 }

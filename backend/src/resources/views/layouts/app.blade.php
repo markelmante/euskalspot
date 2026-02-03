@@ -2,127 +2,175 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>EuskalSpot - @yield('title', 'Tu Surf App')</title>
+    <title>{{ config('app.name', 'EuskalSpot') }}</title>
 
     {{-- FUENTES --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap"
+        rel="stylesheet">
 
-    {{-- 1. CSS GLOBAL (Navbar, Footer, Reset, Variables) --}}
-    {{-- CAMBIO IMPORTANTE: Aquí cargamos layout.css, no dashboard.css --}}
+    {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?v={{ time() }}">
-
-    {{-- Aquí se inyectarán los CSS específicos de cada vista (ej: dashboard.css) --}}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ time() }}">
     @stack('styles')
 </head>
 
-<body class="@yield('body-class')">
+<body>
 
-    {{--
-    LÓGICA DEL MENÚ:
-    1. Si está logueado (@auth) -> Carga navigation.blade.php
-    2. Si es invitado (@guest) -> Carga un header sencillo
-    --}}
+    {{-- 1. NAVBAR (ESCRITORIO + CABECERA) --}}
+    <nav class="main-navbar">
+        <div class="navbar-content">
 
-    @auth
-        @include('layouts.navigation')
-    @endauth
+            {{-- LOGO --}}
+            <a href="{{ route('dashboard') }}" class="nav-logo">
+                Euskal<span class="text-primary">Spot</span>
+            </a>
 
-    @guest
-        {{-- Header simplificado para invitados --}}
-        <header class="main-header">
-            <div class="header-container">
-                <a href="/" class="nav-logo" style="margin-right: auto;">
-                    Euskal<span class="text-primary">Spot</span>
-                </a>
-                <nav class="nav-links">
-                    <a href="{{ route('login') }}" class="btn-login">Entrar</a>
-                    <a href="{{ route('register') }}" class="btn-register">Registrarse</a>
-                </nav>
+            {{-- ZONA DERECHA --}}
+            <div class="nav-right-side">
+
+                {{-- ENLACES DE ESCRITORIO (Ahora con ICONOS) --}}
+                <div class="desktop-links desktop-only">
+
+                    {{-- Link: Agenda --}}
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                        <svg class="nav-icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>Agenda Semanal</span>
+                    </a>
+
+                    {{-- Link: Explorar --}}
+                    <a href="{{ url('/explorar') }}" class="nav-link {{ request()->is('explorar*') ? 'active' : '' }}">
+                        <svg class="nav-icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Explorar Spots</span>
+                    </a>
+
+                </div>
+
+                {{-- PERFIL DROPDOWN (Escritorio) --}}
+                <div class="relative-container desktop-only">
+                    <button id="profileBtn" class="profile-btn">
+                        {{ substr(Auth::user()->name ?? 'U', 0, 1) }}
+                    </button>
+
+                    <div id="profileDropdown" class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <span class="user-name">{{ Auth::user()->name ?? 'Usuario' }}</span>
+                            <span class="user-role">Usuario</span>
+                        </div>
+
+                        {{-- Dropdown Item: Perfil con Icono --}}
+                        <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                            <svg class="nav-icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Mi Perfil
+                        </a>
+
+                        {{-- Dropdown Item: Logout con Icono --}}
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">
+                                <svg class="nav-icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {{-- BOTÓN HAMBURGUESA (MÓVIL) --}}
+                <button id="mobileMenuBtn" class="hamburger-btn mobile-only">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
             </div>
-        </header>
-    @endguest
+        </div>
+    </nav>
 
-
-    {{-- CONTENIDO PRINCIPAL --}}
-    <main style="min-height: 80vh;">
+    {{-- 2. CONTENIDO --}}
+    <main>
         @yield('content')
     </main>
 
+    {{-- 3. SIDEBAR MÓVIL (Igual que antes) --}}
+    <div id="mobileSidebar">
+        <div class="side-menu-content">
+            <div class="side-header">
+                <span class="menu-title">Menú</span>
+                <button id="closeSidebarBtn" class="close-btn-modern">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
 
-    {{-- FOOTER GLOBAL --}}
+            <nav class="side-nav-links">
+                <a href="{{ route('dashboard') }}"
+                    class="side-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Agenda Semanal</span>
+                </a>
+
+                <a href="{{ url('/explorar') }}" class="side-link {{ request()->is('explorar*') ? 'active' : '' }}">
+                    <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Explorar Spots</span>
+                </a>
+
+                <a href="{{ route('profile.edit') }}"
+                    class="side-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
+                    <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span>Mi Perfil</span>
+                </a>
+
+                <div class="separator"></div>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="side-link logout-link">
+                        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </form>
+            </nav>
+        </div>
+    </div>
+
     <footer class="main-footer">
         <div class="footer-container">
-            <div class="footer-info">
-                <p>&copy; {{ date('Y') }} <strong>EuskalSpot</strong></p>
-            </div>
-            <div class="footer-links">
-                <a href="#">Instagram</a>
-                <a href="#">Contacto</a>
-            </div>
+            <h4>EuskalSpot</h4>
+            <p>&copy; {{ date('Y') }}</p>
         </div>
     </footer>
 
-    {{-- SCRIPTS FUNCIONALES GLOBALES (Menú y Dropdowns) --}}
-    <script>
-        // Función Global para abrir/cerrar perfil (Desktop)
-        window.toggleProfile = function (event) {
-            event.stopPropagation(); // Evita que el click llegue al document
-            const dropdown = document.getElementById('profileDropdown');
-            if (dropdown) {
-                dropdown.classList.toggle('hidden');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // 1. CERRAR DROPDOWN AL CLICAR FUERA
-            document.addEventListener('click', function (e) {
-                const dropdown = document.getElementById('profileDropdown');
-                const button = document.querySelector('.profile-btn');
-                const dropdownContainer = document.querySelector('.profile-dropdown-container');
-
-                if (dropdown && !dropdown.classList.contains('hidden')) {
-                    // Si el clic no fue dentro del contenedor del dropdown
-                    if (!dropdownContainer.contains(e.target)) {
-                        dropdown.classList.add('hidden');
-                    }
-                }
-            });
-
-            // 2. LÓGICA MENÚ MÓVIL (Hamburguesa)
-            const menuBtn = document.getElementById('menuBtn');
-            const sideMenu = document.getElementById('sideMenu');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-
-            if (menuBtn && sideMenu) {
-                menuBtn.addEventListener('click', () => {
-                    sideMenu.classList.remove('hidden');
-                });
-            }
-
-            if (closeMenuBtn && sideMenu) {
-                closeMenuBtn.addEventListener('click', () => {
-                    sideMenu.classList.add('hidden');
-                });
-            }
-
-            // Cerrar menú móvil al hacer click en el fondo oscuro
-            if (sideMenu) {
-                sideMenu.addEventListener('click', (e) => {
-                    if (e.target === sideMenu) {
-                        sideMenu.classList.add('hidden');
-                    }
-                });
-            }
-        });
-    </script>
-
+    <script src="{{ asset('js/navigation.js') }}?v={{ time() }}"></script>
     @stack('scripts')
 </body>
 

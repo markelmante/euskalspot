@@ -24,7 +24,14 @@
             <div class="column-left">
                 <div class="profile-card">
                     <div class="card-header">
-                        <h2>👤 Datos Personales</h2>
+                        <h2>
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Datos Personales
+                        </h2>
                         <p>Actualiza tu información de contacto y ubicación.</p>
                     </div>
 
@@ -67,24 +74,44 @@
                         <div class="form-group">
                             <label class="form-label" style="margin-bottom:12px">Tu Estilo</label>
                             <div class="visual-selector">
+                                {{-- OPCIÓN SURF --}}
                                 <label class="selector-option">
                                     <input type="radio" name="preferencia" value="surf" {{ (old('preferencia', $user->profile?->preferencia) === 'surf') ? 'checked' : '' }}>
                                     <div class="selector-content">
-                                        <span class="selector-emoji">🌊</span>
+                                        <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                            <path
+                                                d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                            <path
+                                                d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                        </svg>
                                         <span class="selector-text">Surf</span>
                                     </div>
                                 </label>
+
+                                {{-- OPCIÓN MONTE --}}
                                 <label class="selector-option">
                                     <input type="radio" name="preferencia" value="monte" {{ (old('preferencia', $user->profile?->preferencia) === 'monte') ? 'checked' : '' }}>
                                     <div class="selector-content">
-                                        <span class="selector-emoji">⛰️</span>
+                                        <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                                        </svg>
                                         <span class="selector-text">Monte</span>
                                     </div>
                                 </label>
+
+                                {{-- OPCIÓN AMBOS --}}
                                 <label class="selector-option">
                                     <input type="radio" name="preferencia" value="ambos" {{ (old('preferencia', $user->profile?->preferencia ?? 'ambos') === 'ambos') ? 'checked' : '' }}>
                                     <div class="selector-content">
-                                        <span class="selector-emoji">🔥</span>
+                                        <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.2-2.2.5-3.27.57 1.07 1.08 2.17 2.5 2.77z" />
+                                        </svg>
                                         <span class="selector-text">Ambos</span>
                                     </div>
                                 </label>
@@ -94,7 +121,13 @@
                         <div style="margin-top: 32px; display:flex; align-items:center;">
                             <button type="submit" class="btn-primary">Guardar Cambios</button>
                             @if (session('status') === 'profile-updated')
-                                <span class="status-msg">✅ Guardado</span>
+                                <div class="status-msg">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    Guardado
+                                </div>
                             @endif
                         </div>
                     </form>
@@ -104,10 +137,17 @@
             {{-- COLUMNA DERECHA: SEGURIDAD --}}
             <div class="column-right">
 
-                {{-- CAMBIAR CONTRASEÑA (Traducido y Estilizado) --}}
+                {{-- CAMBIAR CONTRASEÑA --}}
                 <div class="profile-card">
                     <div class="card-header">
-                        <h2>🔒 Seguridad</h2>
+                        <h2>
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            Seguridad
+                        </h2>
                         <p>Actualiza tu contraseña periódicamente.</p>
                     </div>
 
@@ -139,22 +179,35 @@
                         <div style="margin-top: 24px; display:flex; align-items:center;">
                             <button type="submit" class="btn-primary">Actualizar Clave</button>
                             @if (session('status') === 'password-updated')
-                                <span class="status-msg">✅ Actualizada</span>
+                                <div class="status-msg">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    Actualizada
+                                </div>
                             @endif
                         </div>
                     </form>
                 </div>
 
-                {{-- BORRAR CUENTA (Traducido) --}}
+                {{-- BORRAR CUENTA --}}
                 <div class="profile-card danger-zone">
                     <div class="card-header">
-                        <h2>⚠️ Zona de Peligro</h2>
+                        <h2>
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                                <line x1="12" y1="9" x2="12" y2="13" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                            Zona de Peligro
+                        </h2>
                         <p>Eliminar tu cuenta es una acción irreversible.</p>
                     </div>
 
                     <p style="font-size: 0.9rem; color: #7f1d1d; margin-bottom: 20px; line-height: 1.5;">
-                        Una vez que elimines tu cuenta, todos tus recursos y datos se borrarán permanentemente. Por favor,
-                        asegúrate antes de proceder.
+                        Una vez que elimines tu cuenta, todos tus recursos y datos se borrarán permanentemente.
                     </p>
 
                     <form method="post" action="{{ route('profile.destroy') }}"
@@ -162,8 +215,6 @@
                         @csrf
                         @method('delete')
 
-                        {{-- Nota: Para simplificar, usamos un confirm de navegador.
-                        Si usas el modal de Breeze, requeriría AlpineJS aquí. --}}
                         <div class="form-group">
                             <label class="form-label" style="color:#991b1b">Para confirmar, escribe tu contraseña:</label>
                             <input type="password" name="password" class="form-input" placeholder="Tu contraseña actual"

@@ -13,20 +13,26 @@ class Spot extends Model
         'tipo',
         'municipio_id',
         'descripcion',
-        'foto',
+        'foto', // Ahora guardará un JSON con 3 rutas
         'latitud',
         'longitud'
     ];
 
-    // Relación con Municipio (Un spot pertenece a un municipio)
+    protected $casts = [
+        'foto' => 'array',
+    ];
+
+    // Relaciones
     public function municipio(): BelongsTo
     {
         return $this->belongsTo(Municipio::class);
     }
+
     public function etiquetas(): BelongsToMany
     {
         return $this->belongsToMany(Etiqueta::class);
     }
+
     public function favorecidoPor()
     {
         return $this->belongsToMany(User::class, 'favoritos');
