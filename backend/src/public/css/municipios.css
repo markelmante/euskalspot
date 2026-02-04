@@ -1,0 +1,313 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    --primary: #2563EB;
+    /* Azul vibrante */
+    --primary-dark: #1E40AF;
+    /* Azul oscuro para hover */
+    --dark: #0F172A;
+    /* Negro azulado elegante */
+    --bg-page: #F8FAFC;
+    /* Fondo gris muy claro */
+    --card-bg: #FFFFFF;
+    --text-main: #334155;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+
+    /* Sombras sofisticadas */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.municipios-wrapper {
+    background-color: var(--bg-page);
+    min-height: 100vh;
+    padding: 3rem 1rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /* Texto nítido */
+}
+
+.muni-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   2. HEADER
+   ========================================= */
+.section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.section-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: -0.025em;
+    margin-bottom: 0.75rem;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* =========================================
+   3. BUSCADOR (Moderno y Flotante)
+   ========================================= */
+.search-toolbar {
+    max-width: 500px;
+    margin: 0 auto 4rem auto;
+    position: relative;
+    z-index: 10;
+}
+
+.search-input-group {
+    position: relative;
+    box-shadow: var(--shadow-md);
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-input-group:focus-within {
+    box-shadow: var(--shadow-lg);
+    /* Se eleva al escribir */
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #94A3B8;
+    pointer-events: none;
+}
+
+.muni-search-input {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--dark);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.muni-search-input:focus {
+    border-color: var(--primary);
+    background: #fff;
+}
+
+/* =========================================
+   4. GRID DE TARJETAS
+   ========================================= */
+.municipios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.muni-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.muni-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(37, 99, 235, 0.2);
+    /* Borde azul sutil */
+}
+
+/* Imagen */
+.card-image-wrapper {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.muni-card:hover .card-image-wrapper img {
+    transform: scale(1.08);
+    /* Zoom lento */
+}
+
+/* Badge (Glassmorphism) */
+.province-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Contenido */
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.muni-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.muni-stats {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.stat-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+}
+
+/* Botón flecha */
+.card-action {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #F1F5F9;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.muni-card:hover .btn-arrow {
+    background-color: var(--dark);
+    color: white;
+    transform: translateX(4px);
+}
+
+/* =========================================
+   5. EMPTY STATE (Sin resultados)
+   ========================================= */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.empty-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #F1F5F9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+}
+
+.empty-icon-wrapper svg {
+    width: 32px;
+    height: 32px;
+    color: #94A3B8;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-reset:hover {
+    background: #EFF6FF;
+    border-color: var(--primary);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .municipios-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header h1 {
+        font-size: 2rem;
+    }
+}

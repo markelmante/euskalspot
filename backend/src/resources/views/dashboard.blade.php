@@ -52,7 +52,6 @@
                                 <small>{{ $fav->spot->municipio->nombre ?? 'Euskadi' }}</small>
                             </div>
                             <div style="display:flex; align-items:center; gap:5px;">
-                                {{-- Botón + visible solo en móvil (o cuando no se puede arrastrar) --}}
                                 <button class="btn-icon-action btn-add-mobile" onclick="openModal('{{ addslashes($fav->spot->nombre) }}', {{ $fav->spot->id }})">
                                     +
                                 </button>

@@ -1,0 +1,246 @@
+/* public/css/municipio-show.css */
+
+/* --- VARIABLES --- */
+:root {
+    --primary: #2563EB;
+    --primary-dark: #1E40AF;
+    --dark: #0F172A;
+    --bg-page: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+
+    /* Etiquetas (Tags) */
+    --tag-playa-bg: #EFF6FF;
+    --tag-playa-text: #1D4ED8;
+    --tag-monte-bg: #F0FDF4;
+    --tag-monte-text: #15803D;
+
+    /* Sombras Premium */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Animación de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.show-wrapper {
+    background-color: var(--bg-page);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1.5rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--dark);
+    animation: fadeIn 0.5s ease-out forwards;
+    /* La página carga suavemente */
+}
+
+.show-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- CABECERA MINIMALISTA (Mejorada) --- */
+.header-simple {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-back-simple {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.nav-back-simple:hover {
+    color: var(--primary);
+    transform: translateX(-4px);
+    /* Pequeño movimiento a la izquierda */
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.muni-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    /* Letras un poco más juntas (Moderno) */
+}
+
+.province-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- GRID DE RESULTADOS --- */
+.spots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    /* Tarjetas un pelín más anchas */
+    gap: 2.5rem;
+}
+
+/* --- TARJETA SPOT (Link total) --- */
+.spot-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    /* Ocupa todo el espacio del grid */
+}
+
+.spot-card {
+    background: white;
+    border-radius: 16px;
+    /* Bordes más redondeados */
+    overflow: hidden;
+    border: 1px solid transparent;
+    /* Truco para transición suave de borde */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Efecto HOVER en la tarjeta completa */
+.spot-card-link:hover .spot-card {
+    transform: translateY(-8px);
+    /* Levanta la tarjeta */
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(37, 99, 235, 0.2);
+    /* Borde azul sutil */
+}
+
+/* Imagen */
+.spot-image-wrapper {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.spot-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    /* Zoom lento */
+}
+
+.spot-card-link:hover .spot-image-wrapper img {
+    transform: scale(1.08);
+    /* Zoom in de la imagen */
+}
+
+/* Badge (Efecto cristal) */
+.spot-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(8px);
+    /* Efecto borroso detrás */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.spot-type-badge.playa {
+    background: rgba(239, 246, 255, 0.95);
+    color: var(--tag-playa-text);
+}
+
+.spot-type-badge.monte {
+    background: rgba(240, 253, 244, 0.95);
+    color: var(--tag-monte-text);
+}
+
+/* Contenido */
+.spot-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.spot-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--dark);
+    transition: color 0.3s;
+}
+
+.spot-card-link:hover .spot-name {
+    color: var(--primary);
+    /* El título se pone azul al pasar el ratón */
+}
+
+.spot-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+/* Botón "Ver detalles" simulado */
+.card-cta {
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-cta span {
+    transition: transform 0.3s;
+}
+
+.spot-card-link:hover .card-cta span {
+    transform: translateX(5px);
+    /* La flecha se mueve a la derecha */
+}

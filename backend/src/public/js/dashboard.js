@@ -173,7 +173,7 @@ window.removeFavorite = function (spotId) {
 
     const { csrfToken } = window.dashboardConfig;
 
-    fetch(`/favoritos/${spotId}`, { // OJO: Revisa si tu ruta requiere el ID del spot
+    fetch(`/favoritos/${spotId}`, { 
         method: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': csrfToken,
@@ -199,7 +199,7 @@ window.removeFavorite = function (spotId) {
 window.updateFavCount = function (change) {
     const badge = document.querySelector('.badge-count');
     if (badge) {
-        let current = parseInt(badge.innerText) || 0; // fallback a 0 si es NaN
+        let current = parseInt(badge.innerText) || 0; 
         badge.innerText = Math.max(0, current + change);
     }
 };

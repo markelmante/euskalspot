@@ -48,14 +48,21 @@ body {
     justify-content: space-between;
 }
 
-/* Logo */
+/* --- LOGO (Actualizado para Imagen) --- */
 .nav-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: var(--text-main);
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: -0.5px;
+    /* Quitamos estilos de fuente antiguos */
+}
+
+.logo-img {
+    height: 55px;
+    /* Altura óptima para barra de 70px */
+    width: auto;
+    /* Mantiene proporción */
+    object-fit: contain;
+    display: block;
 }
 
 .text-primary {
