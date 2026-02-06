@@ -1,13 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Recuperamos datos
     const spots = window.explorerData.spots;
     let favorites = window.explorerData.favorites;
     const csrfToken = window.explorerData.csrfToken;
 
-    // --- CONFIGURACIÓN DE ICONOS ---
-    const icons = {
+    // ==========================================
+    // 0. DEFINICIÓN DE ICONOS SVG
+    // ==========================================
+    const SVGS = {
+        sun: `<svg fill="none" viewBox="0 0 24 24" stroke="orange" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
+        cloud: `<svg fill="none" viewBox="0 0 24 24" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
+        rain: `<svg fill="none" viewBox="0 0 24 24" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>`,
+        snow: `<svg fill="none" viewBox="0 0 24 24" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><line x1="8" y1="8" x2="16" y2="16"></line><line x1="8" y1="16" x2="16" y2="8"></line><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>`,
+        bolt: `<svg fill="none" viewBox="0 0 24 24" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
+
+        // UI Icons
         playa: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 6c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>`,
-        monte: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg>`
+        monte: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg>`,
+        mapPin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+        // Corazón (reutilizable)
+        heart: `<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:100%;height:100%;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
     };
+
+    function getWeatherSVG(code) {
+        if (code === 0) return SVGS.sun;
+        if (code >= 1 && code <= 3) return SVGS.cloud;
+        if (code >= 45 && code <= 48) return SVGS.cloud;
+        if (code >= 51 && code <= 67) return SVGS.rain;
+        if (code >= 71 && code <= 77) return SVGS.snow;
+        if (code >= 80 && code <= 82) return SVGS.rain;
+        if (code >= 95 && code <= 99) return SVGS.bolt;
+        return SVGS.sun;
+    }
 
     // --- INICIALIZAR MAPA ---
     const map = L.map('map').setView([43.1, -2.5], 9);
@@ -23,6 +47,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSearch = '';
 
     // ==========================================
+    // PROCESAR IMAGEN
+    // ==========================================
+    function resolveSpotImage(spot) {
+        let imgSrc = null;
+        if (spot.foto) {
+            let rawFoto = spot.foto;
+            if (typeof rawFoto === 'string') {
+                try {
+                    const parsed = JSON.parse(rawFoto);
+                    rawFoto = Array.isArray(parsed) ? parsed[0] : parsed;
+                } catch (e) { }
+            } else if (Array.isArray(rawFoto)) {
+                rawFoto = rawFoto[0];
+            }
+            if (rawFoto) imgSrc = `/storage/${rawFoto.replace(/\\/g, '/')}`;
+        }
+        if (!imgSrc) {
+            const isPlaya = spot.tipo && spot.tipo.toLowerCase() === 'playa';
+            imgSrc = isPlaya
+                ? "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+                : "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80";
+        }
+        return imgSrc;
+    }
+
+    // ==========================================
     // 1. RENDERIZADO DEL MAPA Y LISTA
     // ==========================================
     window.renderMap = function () {
@@ -30,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const listContainer = document.getElementById('spots-list-container');
         listContainer.innerHTML = '';
 
-        // Filtrado Combinado (Tipo + Búsqueda)
         const filteredSpots = spots.filter(spot => {
             const matchesType = (currentFilter === 'all' || spot.tipo === currentFilter);
             const searchLower = currentSearch.toLowerCase();
@@ -45,13 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filteredSpots.forEach(spot => {
-            // Datos básicos
             const isFav = favorites.includes(spot.id);
             const heartClass = isFav ? 'is-favorite' : '';
-            const heartIcon = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
 
             const isPlaya = spot.tipo === 'playa';
-            const iconSvg = isPlaya ? icons.playa : icons.monte;
+            const iconSvg = isPlaya ? SVGS.playa : SVGS.monte;
             const mapPinClass = isPlaya ? 'marker-playa' : 'marker-monte';
             const listIconBg = isPlaya ? 'bg-playa-soft' : 'bg-monte-soft';
 
@@ -69,27 +116,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupAnchor: [0, -20]
             });
 
-            const marker = L.marker([spot.latitud, spot.longitud], {
-                icon: customIcon
-            });
+            const marker = L.marker([spot.latitud, spot.longitud], { icon: customIcon });
 
-            // AL CLICAR MARCADOR -> ABRIR DRAWER
             marker.on('click', () => {
                 openSpotDrawer(spot);
             });
             markersLayer.addLayer(marker);
 
-            // --- ELEMENTO DE LISTA SIDEBAR (Ahora con onclick en todo el item) ---
+            // --- LISTA ---
             const item = document.createElement('div');
             item.className = 'spot-item';
-
-            // Evento click en toda la tarjeta
             item.onclick = (e) => {
-                // Si el clic fue en el botón de favoritos, no abrimos el drawer
                 if (e.target.closest('.btn-fav-action')) return;
                 focusOnSpot(spot.id);
             };
 
+            // NOTA: Añadimos data-spot-id al botón para encontrarlo luego
             item.innerHTML = `
                 <div class="spot-info-left" style="flex:1;">
                     <div class="spot-icon-wrapper ${listIconBg}">
@@ -100,7 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${spot.municipio.nombre}</p>
                     </div>
                 </div>
-                <button class="btn-fav-action ${heartClass}" onclick="toggleFav(${spot.id}, this)">${heartIcon}</button>
+                <button class="btn-fav-action ${heartClass}" onclick="toggleFav(${spot.id}, this)" data-spot-id="${spot.id}">
+                    <div style="width: 18px; height: 18px;">${SVGS.heart}</div>
+                </button>
             `;
             listContainer.appendChild(item);
         });
@@ -112,16 +156,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openSpotDrawer = function (spot) {
         const drawer = document.getElementById('spotDrawer');
         const isPlaya = spot.tipo === 'playa';
-
-        // Foto de fondo (fallback a gradiente)
-        const bgStyle = spot.foto ?
-            `background-image: url('/storage/${spot.foto}');` :
-            `background: linear-gradient(135deg, ${isPlaya ? '#DBEAFE' : '#D1FAE5'} 0%, #F1F5F9 100%);`;
-
+        const imageUrl = resolveSpotImage(spot);
         const typeLabel = isPlaya ? 'Playa / Surf' : 'Montaña / Hike';
 
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.latitud},${spot.longitud}`;
+
+        // Calculamos estado de favorito
+        const isFav = favorites.includes(spot.id);
+        const favClass = isFav ? 'is-favorite' : '';
+
         drawer.innerHTML = `
-            <div class="drawer-header" style="${bgStyle}">
+            <div class="drawer-header" style="background-image: url('${imageUrl}');">
                 <button class="btn-close-drawer" onclick="closeSpotDrawer()">×</button>
             </div>
             <div class="drawer-body">
@@ -144,26 +189,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="drawer-actions">
+                    <button class="btn-drawer-fav ${favClass}" onclick="toggleFav(${spot.id}, this)" data-spot-id="${spot.id}">
+                        <div style="width: 24px; height: 24px;">${SVGS.heart}</div>
+                    </button>
+
                     <a href="/spots/${spot.id}" class="btn-details-full">
-                        Ver Ficha Completa
+                        Ver Ficha
                     </a>
                     
-                    <a href="https://www.google.com/maps?q=${spot.latitud},${spot.longitud}" 
-                       target="_blank" class="btn-directions-map">
-                       📍 Mapa
+                    <a href="${googleMapsUrl}" target="_blank" class="btn-directions-map">
+                        <div style="width: 20px; height: 20px;">${SVGS.mapPin}</div>
+                        Mapa
                     </a>
                 </div>
-
             </div>
         `;
 
-        // Abrir Drawer y mover mapa
         drawer.classList.add('open');
-        map.flyTo([spot.latitud, spot.longitud], 14, {
-            duration: 1.2
-        });
-
-        // Llamar a API Tiempo
+        map.flyTo([spot.latitud, spot.longitud], 14, { duration: 1.2 });
         fetchWeather(spot.latitud, spot.longitud, `weather-widget-${spot.id}`);
     };
 
@@ -188,18 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const temp = Math.round(data.current_weather.temperature);
             const wind = data.current_weather.windspeed;
             const code = data.current_weather.weathercode;
-
-            // Iconos simples segun codigo WMO
-            let emoji = '☀️';
-            if (code > 3) emoji = '☁️';
-            if (code > 45) emoji = '🌫️';
-            if (code > 50) emoji = '🌧️';
-            if (code > 90) emoji = '⚡';
+            const iconSvg = getWeatherSVG(code);
 
             const widget = document.getElementById(elementId);
             if (widget) {
                 widget.innerHTML = `
-                    <div style="font-size:2.5rem;">${emoji}</div>
+                    <div style="width: 50px; height: 50px; flex-shrink: 0;">${iconSvg}</div>
                     <div>
                         <div class="weather-temp">${temp}°C</div>
                         <div class="weather-info">Viento: ${wind} km/h</div>
@@ -208,14 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (e) {
             console.error("Error API tiempo", e);
+            const widget = document.getElementById(elementId);
+            if (widget) widget.innerHTML = '<span style="color:red; font-size:0.8rem">Error clima</span>';
         }
     }
 
     // ==========================================
-    // 4. EVENT LISTENERS Y UTILIDADES
+    // 4. EVENT LISTENERS
     // ==========================================
-
-    // Filtrar por Tipo
     window.filterType = function (type, btn) {
         document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -223,7 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderMap();
     };
 
-    // Buscador
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -232,26 +268,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle Favorito
+    // ==========================================
+    // 5. LÓGICA DE FAVORITOS (Actualizada para Sincronización)
+    // ==========================================
     window.toggleFav = function (spotId, btn) {
-        if (event) event.stopPropagation(); // Evita que se abra el drawer si hay conflicto
-        fetch(`/favoritos/toggle/${spotId}`, {
+        if (event) event.stopPropagation();
+
+        const urlTemplate = window.explorerData.urlFavTemplate;
+        const url = urlTemplate.replace('PLACEHOLDER', spotId);
+
+        fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            }
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken }
         }).then(res => res.json()).then(data => {
+
+            // 1. Actualizar el array local
             if (data.status === 'added') {
-                btn.classList.add('is-favorite');
                 if (!favorites.includes(spotId)) favorites.push(spotId);
             } else {
-                btn.classList.remove('is-favorite');
                 favorites = favorites.filter(id => id !== spotId);
             }
-        });
+
+            // 2. SINCRONIZACIÓN VISUAL
+            // Buscamos TODOS los botones (en lista y en drawer) que tengan este data-spot-id
+            const allButtons = document.querySelectorAll(`button[data-spot-id="${spotId}"]`);
+
+            allButtons.forEach(button => {
+                if (data.status === 'added') {
+                    button.classList.add('is-favorite');
+                } else {
+                    button.classList.remove('is-favorite');
+                }
+            });
+
+        }).catch(err => console.error(err));
     };
 
-    // Renderizado Inicial
     renderMap();
 });

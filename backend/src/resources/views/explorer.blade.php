@@ -4,7 +4,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="{{ asset('css/explorer.css') }}?v=5">
+    <link rel="stylesheet" href="{{ asset('css/explorer.css') }}?v=7">
 @endpush
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="filters-section">
                 <h3>Explorar</h3>
 
-                {{-- NUEVO: BUSCADOR --}}
+                {{-- BUSCADOR --}}
                 <div class="search-container">
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre o municipio...">
                 </div>
@@ -56,8 +56,9 @@
         {{-- MAPA --}}
         <div id="map"></div>
 
-        {{-- NUEVO: DRAWER DE DETALLES (PANEL DESLIZANTE) --}}
+        {{-- DRAWER DE DETALLES --}}
         <div id="spotDrawer" class="spot-drawer">
+            {{-- El contenido se inyecta vía JS --}}
         </div>
     </div>
 @endsection
@@ -69,9 +70,10 @@
         window.explorerData = {
             spots: @json($spots),
             favorites: @json($favoritosIds ?? []),
-            csrfToken: '{{ csrf_token() }}'
+            csrfToken: '{{ csrf_token() }}',
+            urlFavTemplate: "{{ route('favoritos.toggle', ['id' => 'PLACEHOLDER']) }}"
         };
     </script>
 
-    <script src="{{ asset('js/explorer.js') }}?v=5"></script>
+    <script src="{{ asset('js/explorer.js') }}?v=7"></script>
 @endpush

@@ -77,8 +77,7 @@
 .btn-filter svg {
     width: 16px;
     height: 16px;
-    fill: currentColor;
-    opacity: 0.7;
+    fill: none;
 }
 
 .btn-filter:hover {
@@ -91,10 +90,6 @@
     color: white;
     border-color: var(--dark);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-filter.active svg {
-    opacity: 1;
 }
 
 /* Lista de Spots */
@@ -152,9 +147,8 @@
 }
 
 .spot-icon-wrapper svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+    width: 24px;
+    height: 24px;
 }
 
 .spot-text h4 {
@@ -197,7 +191,8 @@
 .custom-marker svg {
     width: 18px;
     height: 18px;
-    fill: white;
+    fill: none;
+    stroke: white;
 }
 
 .custom-marker:hover {
@@ -207,10 +202,12 @@
 
 .marker-playa {
     background-color: var(--dash-primary);
+    color: white;
 }
 
 .marker-monte {
     background-color: var(--dash-monte);
+    color: white;
 }
 
 .text-playa {
@@ -221,6 +218,7 @@
     color: var(--dash-monte);
 }
 
+/* Botón Corazón en la LISTA */
 .btn-fav-action {
     background: var(--dash-bg);
     border: none;
@@ -246,17 +244,11 @@
     color: #ef4444;
 }
 
-.btn-fav-action svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-}
-
 /* =========================================
-   4. NUEVAS FUNCIONALIDADES (Buscador y Drawer)
+   4. FUNCIONALIDADES (Buscador y Drawer)
    ========================================= */
 
-/* Barra de Busqueda */
+/* Buscador */
 .search-container {
     padding: 0 0 15px 0;
 }
@@ -278,12 +270,11 @@
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Panel Lateral de Detalles (Drawer) */
+/* Panel Lateral (Drawer) */
 .spot-drawer {
     position: absolute;
     top: 0;
     right: -450px;
-    /* Oculto por defecto */
     width: 400px;
     height: 100%;
     background: white;
@@ -299,7 +290,6 @@
     right: 0;
 }
 
-/* Contenido del Drawer */
 .drawer-header {
     position: relative;
     height: 220px;
@@ -362,7 +352,7 @@
     border: 1px solid #e2e8f0;
 }
 
-/* Widget del Tiempo */
+/* Widget Tiempo */
 .weather-widget {
     background: white;
     border: 1px solid #e2e8f0;
@@ -387,24 +377,65 @@
     line-height: 1.4;
 }
 
-/* --- BOTONES DEL DRAWER (NUEVO) --- */
+/* --- BOTONES DEL DRAWER --- */
 .drawer-actions {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
+/* Botón Favorito en Drawer */
+.btn-drawer-fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    /* No encogerse */
+}
+
+.btn-drawer-fav:hover {
+    background-color: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-drawer-fav.is-favorite {
+    background-color: #fee2e2;
+    border-color: #fecaca;
+    color: #ef4444;
+}
+
+/* Botones Grandes */
+.btn-details-full,
+.btn-directions-map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    /* Ajuste padding horizontal */
+    height: 48px;
+    /* Altura igual al botón de fav */
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+/* Botón Principal (Ver Ficha) */
 .btn-details-full {
-    flex: 2;
-    /* Ocupa más espacio */
     background: var(--dark);
     color: white;
-    padding: 14px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -414,23 +445,18 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Botón Secundario (Google Maps) */
 .btn-directions-map {
-    flex: 1;
-    /* Botón más pequeño */
     background: white;
     color: var(--dark);
     border: 1px solid #cbd5e1;
-    padding: 14px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s;
 }
 
 .btn-directions-map:hover {
-    background: #f1f5f9;
+    background: #f8fafc;
     border-color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* =========================================
@@ -440,7 +466,6 @@
     .explorer-container {
         flex-direction: column-reverse;
         height: calc(100vh - 60px);
-        /* Ajuste para header móvil */
     }
 
     .sidebar-map {
@@ -448,18 +473,12 @@
         height: 45%;
         border-right: none;
         border-top: 1px solid var(--dash-border);
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     }
 
     #map {
         height: 55%;
     }
 
-    .filters-section {
-        padding: 15px;
-    }
-
-    /* Drawer a pantalla completa en móvil */
     .spot-drawer {
         width: 100%;
         right: -100%;

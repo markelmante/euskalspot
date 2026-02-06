@@ -36,7 +36,6 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($request->user()->id)],
-            // Si usas select: 'exists:municipios,nombre'. Si usas input texto: 'string'.
             'municipio_residencia' => ['nullable', 'string', 'max:255'],
             'preferencia' => ['required', 'in:surf,monte,ambos'],
         ]);

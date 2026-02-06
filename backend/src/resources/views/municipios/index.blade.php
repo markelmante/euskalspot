@@ -84,7 +84,7 @@
 
             </div>
 
-            {{-- MENSAJE DE "NO RESULTADOS" (Diseño Profesional con SVG) --}}
+            {{-- MENSAJE DE "NO RESULTADOS" --}}
             <div id="no-results-message" class="empty-state" style="display: none;">
                 <div class="empty-icon-wrapper">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
