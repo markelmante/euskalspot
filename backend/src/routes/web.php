@@ -6,6 +6,8 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SpotController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminSpotController; // <-- Controlador de Spots para Admin
 
 // --- LANDING PAGE ---
 Route::get('/', function () {
@@ -19,11 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [PlanController::class, 'index'])->name('dashboard');
 
     // Rutas de acciones de planes
-    Route::post('/planes', [PlanController::class, 'store'])->name('planes.store'); // Crear nuevo
-
-    Route::patch('/planes/{id}', [PlanController::class, 'update'])->name('planes.update'); //Mover plan de un dia a otro
-
-    Route::delete('/planes/{id}', [PlanController::class, 'destroy'])->name('planes.destroy'); // Borrar
+    Route::post('/planes', [PlanController::class, 'store'])->name('planes.store');
+    Route::patch('/planes/{id}', [PlanController::class, 'update'])->name('planes.update');
+    Route::delete('/planes/{id}', [PlanController::class, 'destroy'])->name('planes.destroy');
 
     // --- EXPLORADOR GLOBAL ---
     Route::get('/explorar', [SpotController::class, 'index'])->name('spots.index');
@@ -42,6 +42,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// --- RUTAS DE ADMINISTRADOR ---
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // Panel principal: /admin/panel
+    Route::get('/panel', [AdminController::class, 'index'])->name('panel');
+
+    // Gestión de Spots: /admin/spots
+    Route::get('/spots', [AdminSpotController::class, 'index'])->name('spots.index');
+    Route::get('/spots/crear', [AdminSpotController::class, 'create'])->name('spots.create');
+    Route::post('/spots', [AdminSpotController::class, 'store'])->name('spots.store');
+
+    Route::get('/spots/{spot}/editar', [AdminSpotController::class, 'edit'])->name('spots.edit');
+    Route::put('/spots/{spot}', [AdminSpotController::class, 'update'])->name('spots.update');
+
+    Route::delete('/spots/{spot}', [AdminSpotController::class, 'destroy'])->name('spots.destroy');
+
 });
 
 require __DIR__ . '/auth.php';

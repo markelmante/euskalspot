@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,11 +12,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Llamamos a los seeders en orden
+        // 1. Llamamos a los seeders en orden
         $this->call([
-            MunicipioSeeder::class,  // 1. Primero municipios (necesarios para los spots)
-            EuskalSpotSeeder::class, // 2. Luego los spots
-            ReviewSeeder::class,     // 3. Finalmente las reseñas
+            MunicipioSeeder::class,  // Primero municipios
+            EuskalSpotSeeder::class, // Luego los spots
+            ReviewSeeder::class,     // Finalmente las reseñas
         ]);
+
+        // 2. Crear el usuario Administrador
+        User::firstOrCreate(
+            ['email' => 'admin@euskalspot.com'], 
+            [
+                'name' => 'Administrador',       
+                'password' => bcrypt('password'),
+                'role' => 'admin',              
+            ]
+        );
     }
 }

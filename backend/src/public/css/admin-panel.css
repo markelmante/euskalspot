@@ -1,0 +1,596 @@
+/* ==========================================================================
+   PANEL DE ADMINISTRACIÓN - EUSKALSPOT
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES GLOBALES
+   -------------------------------------------------------------------------- */
+:root {
+    --primary: #2563EB;
+    --primary-dark: #1E40AF;
+    --dark: #0F172A;
+    --bg-page: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-main: #334155;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+
+    --danger: #EF4444;
+    --danger-light: #FEF2F2;
+    --success: #10B981;
+    --success-light: #ECFDF5;
+    --warning: #F59E0B;
+    --warning-light: #FFFBEB;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --------------------------------------------------------------------------
+   2. ESTRUCTURA BASE
+   -------------------------------------------------------------------------- */
+.admin-wrapper {
+    background-color: var(--bg-page);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1.5rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-main);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. CABECERAS (Headers)
+   -------------------------------------------------------------------------- */
+.admin-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+}
+
+.header-flex {
+    align-items: center;
+}
+
+.admin-title-area h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.025em;
+}
+
+.admin-title-area p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.admin-badge {
+    background-color: var(--danger-light);
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTONES GLOBALES
+   -------------------------------------------------------------------------- */
+.btn-primary {
+    background-color: var(--success);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #059669;
+    color: white;
+}
+
+/* --------------------------------------------------------------------------
+   5. COMPONENTES: DASHBOARD PRINCIPAL
+   -------------------------------------------------------------------------- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.icon-blue {
+    background: #EFF6FF;
+    color: var(--primary);
+}
+
+.icon-green {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.icon-yellow {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.stat-info h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.25rem 0;
+}
+
+.stat-info p {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0;
+    line-height: 1;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    background: #F1F5F9;
+    color: var(--dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    transition: all 0.3s;
+}
+
+.action-card:hover .action-icon {
+    background: var(--primary);
+    color: white;
+}
+
+.action-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.action-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.action-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.action-arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.action-card:hover .action-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --------------------------------------------------------------------------
+   6. COMPONENTES: BUSCADOR Y TABLAS
+   -------------------------------------------------------------------------- */
+.admin-toolbar {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.admin-search-form {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s;
+}
+
+.admin-search-form:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    margin-left: 0.75rem;
+}
+
+.admin-search-input {
+    flex: 1;
+    border: none;
+    padding: 0.6rem 0.75rem;
+    outline: none;
+    background: transparent;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.admin-search-input::placeholder {
+    color: #9CA3AF;
+}
+
+.btn-search {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 0.25rem;
+}
+
+.btn-search:hover {
+    background-color: var(--primary-dark);
+}
+
+.admin-card {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th {
+    padding: 1rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+    font-weight: 600;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: middle;
+}
+
+.admin-table tr:hover {
+    background-color: var(--bg-page);
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-gray {
+    color: var(--text-muted);
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.badge-id {
+    background-color: #F1F5F9;
+    color: #475569;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-type {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-playa {
+    background-color: #EFF6FF;
+    color: var(--primary);
+}
+
+.badge-monte {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 0.375rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.btn-action svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-edit:hover {
+    background-color: #EFF6FF;
+    color: var(--primary);
+    border-color: #BFDBFE;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-light);
+    color: var(--danger);
+    border-color: #FECACA;
+}
+
+.empty-state {
+    padding: 3rem !important;
+    color: #9CA3AF;
+}
+
+.pagination-wrapper {
+    margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. COMPONENTES: FORMULARIOS (CREAR Y EDITAR) - VERSIÓN CORREGIDA
+   -------------------------------------------------------------------------- */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-main);
+    background-color: #F8FAFC;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background-color: white;
+}
+
+/* Layout de filas para inputs (Lat/Long, Municipio/Tipo) */
+.row-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Grid de Etiquetas - CORRECCIÓN DE ALINEACIÓN */
+.tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.tag-item {
+    display: flex;
+    align-items: center;
+    /* Centra verticalmente el checkbox con el texto */
+    gap: 10px;
+    /* Espacio horizontal entre el cuadro y el nombre */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.tag-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary);
+    /* El color azul del tema */
+}
+
+/* Miniaturas de fotos actuales */
+.current-photos {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.current-photos img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* --------------------------------------------------------------------------
+   8. MEDIA QUERIES (Móviles)
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .row-inputs {
+        grid-template-columns: 1fr;
+    }
+}

@@ -22,12 +22,10 @@
 <body>
 
     {{-- 1. NAVBAR --}}
-    {{-- Aquí es donde ocurre la "herencia" (inclusión) --}}
     @include('layouts.navigation')
 
     {{-- 2. CONTENIDO --}}
     <main>
-        {{-- Aquí se inyecta el contenido de cada página (dashboard, explorar, etc) --}}
         @yield('content')
     </main>
 
@@ -79,6 +77,17 @@
                     <span>Mi Perfil</span>
                 </a>
 
+                @if(auth()->check() && auth()->user()->role === 'admin')
+                    <a href="{{ url('/admin/panel') }}" class="side-link"
+                        style="color: var(--danger); background-color: #FEF2F2;">
+                        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Panel Admin</span>
+                    </a>
+                @endif
+
                 <div class="separator"></div>
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -95,11 +104,26 @@
         </div>
     </div>
 
-    {{-- FOOTER --}}
+    {{-- 4. FOOTER COMPACTO Y DE UNA FILA --}}
     <footer class="main-footer">
-        <div class="footer-container">
-            <h4>EuskalSpot</h4>
-            <p>&copy; {{ date('Y') }}</p>
+        <div class="footer-links-group">
+            <div class="footer-column info-column">
+                <span class="footer-copy">&copy; {{ date('Y') }} <strong>EuskalSpot</strong>.<br>Hecho con ❤️ en
+                    Euskadi.</span>
+                <a href="{{ url('/accesibilidad') }}">Declaración de accesibilidad</a>
+            </div>
+
+            <div class="footer-column">
+                <span class="footer-title">Explorar</span>
+                <a href="{{ url('/explorar') }}">Todos los Spots</a>
+                <a href="{{ route('municipios.index') }}">Municipios</a>
+            </div>
+
+            <div class="footer-column">
+                <span class="footer-title">Cuenta</span>
+                <a href="{{ route('profile.edit') }}">Mi Perfil</a>
+                <a href="{{ route('dashboard') }}">Mi Agenda</a>
+            </div>
         </div>
     </footer>
 

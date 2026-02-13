@@ -3,7 +3,6 @@
 
         {{-- LOGO (IMAGEN) --}}
         <a href="{{ route('dashboard') }}" class="nav-logo">
-            {{-- La clase logo-img se encarga del tamaño en el CSS --}}
             <img src="{{ asset('img/Logo.png') }}" alt="EuskalSpot" class="logo-img">
         </a>
 
@@ -42,6 +41,19 @@
                     <span>Municipios</span>
                 </a>
 
+                {{-- --- TRUCO ADMIN ESCRITORIO --- --}}
+                @if(auth()->check() && auth()->user()->role === 'admin')
+                    <a href="{{ url('/admin/panel') }}" class="nav-link"
+                        style="color: var(--danger); background-color: #FEF2F2; border: 1px solid var(--danger);">
+                        <svg class="nav-icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Panel Admin</span>
+                    </a>
+                @endif
+                {{-- ------------------------------ --}}
+
             </div>
 
             {{-- PERFIL DROPDOWN (Escritorio) --}}
@@ -53,7 +65,8 @@
                 <div id="profileDropdown" class="dropdown-menu">
                     <div class="dropdown-header">
                         <span class="user-name">{{ Auth::user()->name ?? 'Usuario' }}</span>
-                        <span class="user-role">Usuario</span>
+                        <span
+                            class="user-role">{{ auth()->check() && auth()->user()->role === 'admin' ? 'Administrador' : 'Usuario' }}</span>
                     </div>
 
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">

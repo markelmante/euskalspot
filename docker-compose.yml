@@ -7,7 +7,6 @@ services:
     ports:
       - "80:80"
     volumes:
-      # Corregido: apunta a la carpeta /nginx en la raíz
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
@@ -15,20 +14,24 @@ services:
     networks:
       - euskalspot
 
-  # 2. BACKEND (Antes llamado 'web')
+  # 2. BACKEND (Laravel)
   backend:
     build:
-      context: ./backend # Busca el Dockerfile en /backend
+      context: ./backend
     container_name: laravel-apache
     restart: unless-stopped
     volumes:
-      - ./backend/src:/var/www/html # El código está en backend/src
+      # Código fuente (Persistente en RAID)
+      - ./backend/src:/var/www/html
+      # REQUISITO SSII: Persistencia de imágenes/multimedia
+      # Esto asegura que las fotos subidas se guarden en el RAID
+      - ./backend/src/storage/app/public:/var/www/html/storage/app/public
     depends_on:
       - db
     networks:
       - euskalspot
 
-  # 3. FRONTEND (Nuevo servicio para cumplir requisitos)
+  # 3. FRONTEND (Estático)
   frontend:
     image: nginx:alpine
     container_name: euskalspot-front
@@ -37,20 +40,21 @@ services:
     networks:
       - euskalspot
 
-  # 4. NODE (Para desarrollo de Vite)
+  # 4. NODE (Desarrollo)
   node:
     image: node:22
     container_name: laravel-node
     working_dir: /var/www/html
     volumes:
-      - ./backend/src:/var/www/html # Node trabaja sobre el src del backend
+      - ./backend/src:/var/www/html
     ports:
       - "5173:5173"
+    # Comando ajustado para que no se cierre
     command: sh -c "npm install && npm run dev -- --host"
     networks:
       - euskalspot
 
-  # 5. BASE DE DATOS
+  # 5. BASE DE DATOS (CRÍTICO PARA SSII)
   db:
     image: mysql:8.0
     container_name: laravel-mysql
@@ -61,7 +65,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: 2daw3
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
     networks:
       - euskalspot
 
@@ -79,6 +83,3 @@ services:
 networks:
   euskalspot:
     driver: bridge
-
-volumes:
-  dbdata:
