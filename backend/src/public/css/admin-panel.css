@@ -75,6 +75,13 @@
     align-items: center;
 }
 
+/* --- NUEVO: Agrupación de botones en cabecera --- */
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 .admin-title-area h1 {
     font-size: 2.2rem;
     font-weight: 800;
@@ -122,6 +129,29 @@
 .btn-primary:hover {
     background-color: #059669;
     color: white;
+}
+
+/* --- NUEVO: Botón Secundario (Volver) --- */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-secondary:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: var(--dark);
 }
 
 /* --------------------------------------------------------------------------
@@ -477,7 +507,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. COMPONENTES: FORMULARIOS (CREAR Y EDITAR) - VERSIÓN CORREGIDA
+   7. COMPONENTES: FORMULARIOS (CREAR Y EDITAR)
    -------------------------------------------------------------------------- */
 .admin-form {
     display: flex;

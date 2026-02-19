@@ -16,14 +16,16 @@
                 </div>
             @endif
 
-            {{-- CABECERA --}}
+            {{-- CABECERA CON BOTONES AGRUPADOS --}}
             <header class="admin-header header-flex">
                 <div class="admin-title-area">
                     <h1>Gestionar Spots</h1>
                     <p>Crea, edita y elimina los lugares turísticos.</p>
                 </div>
-                <div>
-                    {{-- RUTA REAL: spots.create --}}
+                <div class="header-actions">
+                    <a href="{{ route('admin.panel') }}" class="btn-secondary">
+                        &larr; Volver al Panel
+                    </a>
                     <a href="{{ route('admin.spots.create') }}" class="btn-primary">
                         + Añadir Nuevo Spot
                     </a>
@@ -69,7 +71,6 @@
                                         </span>
                                     </td>
                                     <td class="text-right table-actions">
-                                        {{-- RUTA REAL: Editar --}}
                                         <a href="{{ route('admin.spots.edit', $spot->id) }}" class="btn-action btn-edit"
                                             title="Editar">
                                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,7 +79,6 @@
                                             </svg>
                                         </a>
 
-                                        {{-- ACCIÓN REAL: Eliminar (Requiere Formulario) --}}
                                         <form action="{{ route('admin.spots.destroy', $spot->id) }}" method="POST"
                                             style="display: inline;"
                                             onsubmit="return confirm('¿Estás seguro de que quieres eliminar este spot?');">

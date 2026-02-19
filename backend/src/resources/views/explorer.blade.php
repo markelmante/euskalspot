@@ -4,7 +4,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="{{ asset('css/explorer.css') }}?v=7">
+    <link rel="stylesheet" href="{{ asset('css/explorer.css') }}?v=8">
 @endpush
 
 @section('content')
@@ -19,8 +19,8 @@
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre o municipio...">
                 </div>
 
-                {{-- FILTROS --}}
-                <div class="filter-group">
+                {{-- FILTROS DE TIPO --}}
+                <div class="filter-group mb-3">
                     <button class="btn-filter active" onclick="filterType('all', this)">
                         Todos
                     </button>
@@ -45,6 +45,18 @@
                         </svg>
                         Montes
                     </button>
+                </div>
+
+                {{-- NUEVO: FILTROS DE ETIQUETAS --}}
+                <div class="tags-container">
+                    <p class="filter-label">Filtrar por etiquetas:</p>
+                    <div class="tags-scroll">
+                        @foreach($etiquetas as $etiqueta)
+                            <button class="btn-tag" onclick="filterTag({{ $etiqueta->id }}, this)">
+                                {{ $etiqueta->nombre }}
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
@@ -75,5 +87,5 @@
         };
     </script>
 
-    <script src="{{ asset('js/explorer.js') }}?v=7"></script>
+    <script src="{{ asset('js/explorer.js') }}?v=8"></script>
 @endpush

@@ -92,7 +92,8 @@
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="side-link logout-link">
+                    <button type="submit" class="side-link logout-link"
+                        style="background: none; border: none; width: 100%; text-align: left; cursor: pointer;">
                         <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -104,26 +105,43 @@
         </div>
     </div>
 
-    {{-- 4. FOOTER COMPACTO Y DE UNA FILA --}}
-    <footer class="main-footer">
-        <div class="footer-links-group">
-            <div class="footer-column info-column">
-                <span class="footer-copy">&copy; {{ date('Y') }} <strong>EuskalSpot</strong>.<br>Hecho con ❤️ en
-                    Euskadi.</span>
-                <a href="{{ url('/accesibilidad') }}">Declaración de accesibilidad</a>
+    {{-- 4. FOOTER CLARO --}}
+    <footer class="site-footer">
+        <div class="footer-content">
+            {{-- Sección Marca / Logo --}}
+            <div class="footer-brand">
+                <div class="brand-group">
+                    <span class="brand-name">EuskalSpot</span>
+                </div>
+                <p class="brand-desc">
+                    Descubre los mejores rincones de Euskadi.
+                </p>
             </div>
 
-            <div class="footer-column">
-                <span class="footer-title">Explorar</span>
-                <a href="{{ url('/explorar') }}">Todos los Spots</a>
-                <a href="{{ route('municipios.index') }}">Municipios</a>
-            </div>
+            {{-- Sección Enlaces --}}
+            <div class="footer-links-grid">
+                <div class="footer-nav-col">
+                    <span class="col-title">Explorar</span>
+                    <a href="{{ url('/explorar') }}">Todos los Spots</a>
+                    <a href="{{ route('municipios.index') }}">Municipios</a>
+                </div>
 
-            <div class="footer-column">
-                <span class="footer-title">Cuenta</span>
-                <a href="{{ route('profile.edit') }}">Mi Perfil</a>
-                <a href="{{ route('dashboard') }}">Mi Agenda</a>
+                <div class="footer-nav-col">
+                    <span class="col-title">Cuenta</span>
+                    <a href="{{ route('profile.edit') }}">Mi Perfil</a>
+                    <a href="{{ route('dashboard') }}">Mi Agenda</a>
+                </div>
+
+                <div class="footer-nav-col">
+                    <span class="col-title">Legal</span>
+                    <a href="{{ url('/accesibilidad') }}">Accesibilidad</a>
+                </div>
             </div>
+        </div>
+
+        {{-- Barra inferior Copyright --}}
+        <div class="footer-bottom">
+            <span>&copy; {{ date('Y') }} <strong>EuskalSpot</strong>. Hecho con ❤️ en Euskadi.</span>
         </div>
     </footer>
 

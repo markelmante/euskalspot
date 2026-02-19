@@ -32,15 +32,34 @@ class ReviewFactory extends Factory
             'Información muy precisa sobre las coordenadas GPS.'
         ];
 
+        // Mezcla de nombres vascos y comunes para darle realismo al contexto
+        $nombres = [
+            'Mikel',
+            'Ane',
+            'Jon',
+            'Gorka',
+            'Nerea',
+            'Iker',
+            'Amaia',
+            'David',
+            'Laura',
+            'Carlos',
+            'Maite',
+            'Asier',
+            'Sara',
+            'Aitor',
+            'Leire',
+            'Unai',
+            'Elena',
+            'Javier',
+            'Irati',
+            'Eneko'
+        ];
+
         return [
-            // Nombre aleatorio (sigue usando faker porque eso sí queda bien)
-            'nombre' => $this->faker->firstName() . ' ' . $this->faker->lastName(),
-
-            // Elegimos una frase aleatoria de nuestra lista
+            'nombre' => $this->faker->randomElement($nombres),
             'texto' => $this->faker->randomElement($comentarios),
-
-            // Puntuación entre 3 y 5 (para que no haya haters en la home 😜)
-            'puntuacion' => $this->faker->numberBetween(3, 5),
+            'puntuacion' => $this->faker->numberBetween(4, 5),
         ];
     }
 }

@@ -53,7 +53,6 @@
 
                 <div class="favorites-scroll">
                     @forelse($favoritos as $fav)
-                        {{-- Comprobamos que el spot exista para evitar errores si fue borrado --}}
                         @if($fav->spot)
                             {{-- LOGICA COLOR SIDEBAR --}}
                             <div class="spot-card draggable-item {{ $fav->spot->tipo === 'playa' ? 'type-playa' : 'type-monte' }}"
@@ -61,13 +60,11 @@
                                 data-id="{{ $fav->spot->id }}" data-lat="{{ $fav->spot->lat }}" data-lon="{{ $fav->spot->lon }}"
                                 id="fav-card-{{ $fav->spot->id }}">
 
-                                {{-- Contenido visual de la tarjeta --}}
                                 <div class="spot-content">
                                     <strong>{{ $fav->spot->nombre }}</strong>
                                     <small>{{ $fav->spot->municipio->nombre ?? 'Ubicación' }}</small>
                                 </div>
 
-                                {{-- Botones de Acción --}}
                                 <div class="card-actions">
                                     {{-- Ver detalle --}}
                                     <a href="{{ route('spots.show', $fav->spot->id) }}" class="btn-icon-action btn-details"
@@ -94,18 +91,33 @@
                             </div>
                         @endif
                     @empty
-                        <div class="empty-state">
-                            <p>No tienes favoritos guardados.</p>
-                            <a href="{{ url('/explorar') }}">Explorar Spots</a>
+                        {{-- NUEVO ESTADO VACÍO PROFESIONAL --}}
+                        <div class="empty-favorites-state">
+                            <div class="empty-icon-wrapper">
+                                <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h4>¿No tienes planes?</h4>
+                            <p>Tu lista de favoritos está vacía. Descubre lugares increíbles para añadir a tu semana.</p>
+                            <a href="{{ url('/explorar') }}" class="btn-explore-spots">
+                                <span>Explorar Spots</span>
+                                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </a>
                         </div>
                     @endforelse
                 </div>
             </aside>
 
-            {{-- GRID CALENDARIO: Días de la semana --}}
+            {{-- GRID CALENDARIO --}}
             <div class="calendar-grid">
                 @foreach ($calendario as $dia)
-                    {{-- Columna del día (Dropzone) --}}
                     <div class="day-column dropzone {{ $dia['es_hoy'] ? 'today-column' : '' }}"
                         data-date="{{ $dia['fecha_completa'] }}">
 
@@ -122,15 +134,9 @@
                             </div>
                         </div>
 
-                        {{-- Cuerpo del día (Donde caen los planes) --}}
                         <div class="day-body">
                             @foreach ($dia['planes'] as $plan)
                                 @if($plan->spot)
-                                    {{--
-                                    CORRECCIÓN AQUÍ:
-                                    Añadida la clase condicional {{ $plan->spot->tipo === 'playa' ? 'type-playa' : 'type-monte' }}
-                                    a la tarjeta dentro del calendario.
-                                    --}}
                                     <div class="spot-card-calendar draggable-item {{ $plan->spot->tipo === 'playa' ? 'type-playa' : 'type-monte' }}"
                                         draggable="true" data-origin="plan" data-type="{{ $plan->spot->tipo }}"
                                         data-plan-id="{{ $plan->id }}" data-id="{{ $plan->spot->id }}" id="plan-{{ $plan->id }}">
@@ -140,7 +146,6 @@
                                         </div>
 
                                         <div class="plan-actions">
-                                            {{-- Ver spot --}}
                                             <a href="{{ route('spots.show', $plan->spot->id) }}" class="btn-mini-action"
                                                 title="Ver Spot">
                                                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -150,7 +155,6 @@
                                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
-                                            {{-- Borrar plan --}}
                                             <button class="btn-delete-plan" onclick="deletePlan({{ $plan->id }})">&times;</button>
                                         </div>
                                     </div>
@@ -196,6 +200,5 @@
             currentDate: "{{ $inicioSemana->format('Y-m-d') }}"
         };
     </script>
-
     <script src="{{ asset('js/dashboard.js') }}?v={{ time() }}"></script>
 @endpush

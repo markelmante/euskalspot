@@ -3,10 +3,8 @@
    ========================================= */
 :root {
     --dash-primary: #2563EB;
-    /* Azul Playa */
     --dash-primary-soft: #DBEAFE;
     --dash-monte: #10B981;
-    /* Verde Monte */
     --dash-monte-soft: #D1FAE5;
     --dash-bg: #F1F5F9;
     --dash-card-bg: #FFFFFF;
@@ -53,6 +51,11 @@
     font-weight: 700;
 }
 
+.mb-3 {
+    margin-bottom: 12px;
+}
+
+/* Grupos de Botones */
 .filter-group {
     display: flex;
     gap: 8px;
@@ -90,6 +93,48 @@
     color: white;
     border-color: var(--dark);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- NUEVO: Estilos para Etiquetas --- */
+.tags-container {
+    margin-top: 15px;
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.tags-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.btn-tag {
+    background: #f1f5f9;
+    border: 1px solid transparent;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-tag:hover {
+    background: #e2e8f0;
+}
+
+.btn-tag.active {
+    background: #eff6ff;
+    color: var(--dash-primary);
+    border-color: var(--dash-primary);
+    font-weight: 600;
 }
 
 /* Lista de Spots */
@@ -188,13 +233,6 @@
     transition: transform 0.2s;
 }
 
-.custom-marker svg {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: white;
-}
-
 .custom-marker:hover {
     transform: scale(1.15);
     z-index: 999 !important;
@@ -247,8 +285,6 @@
 /* =========================================
    4. FUNCIONALIDADES (Buscador y Drawer)
    ========================================= */
-
-/* Buscador */
 .search-container {
     padding: 0 0 15px 0;
 }
@@ -377,14 +413,13 @@
     line-height: 1.4;
 }
 
-/* --- BOTONES DEL DRAWER --- */
+/* Botones Drawer */
 .drawer-actions {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
-/* Botón Favorito en Drawer */
 .btn-drawer-fav {
     display: flex;
     align-items: center;
@@ -398,7 +433,6 @@
     cursor: pointer;
     transition: all 0.2s ease;
     flex-shrink: 0;
-    /* No encogerse */
 }
 
 .btn-drawer-fav:hover {
@@ -413,7 +447,6 @@
     color: #ef4444;
 }
 
-/* Botones Grandes */
 .btn-details-full,
 .btn-directions-map {
     display: flex;
@@ -421,9 +454,7 @@
     justify-content: center;
     gap: 8px;
     padding: 0 16px;
-    /* Ajuste padding horizontal */
     height: 48px;
-    /* Altura igual al botón de fav */
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
@@ -432,7 +463,6 @@
     flex: 1;
 }
 
-/* Botón Principal (Ver Ficha) */
 .btn-details-full {
     background: var(--dark);
     color: white;
@@ -445,7 +475,6 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Botón Secundario (Google Maps) */
 .btn-directions-map {
     background: white;
     color: var(--dark);
@@ -460,23 +489,28 @@
 }
 
 /* =========================================
-   5. RESPONSIVE
+   5. RESPONSIVO (MOBILE FIRST MODIFICADO)
    ========================================= */
 @media (max-width: 768px) {
     .explorer-container {
         flex-direction: column-reverse;
+        /* Usamos altura dinámica pero asegurando que no se salga */
         height: calc(100vh - 60px);
     }
 
     .sidebar-map {
         width: 100%;
-        height: 45%;
+        /* AUMENTADO: Ahora la lista ocupa el 70% de la pantalla */
+        height: 70%;
         border-right: none;
         border-top: 1px solid var(--dash-border);
     }
 
     #map {
-        height: 55%;
+        /* REDUCIDO: El mapa solo ocupa el 30% */
+        height: 30%;
+        min-height: 180px;
+        /* Evita que el mapa desaparezca si la pantalla es muy pequeña */
     }
 
     .spot-drawer {

@@ -242,7 +242,7 @@ main {
     display: block;
 }
 
-/* Opciones de Registro (Preferencias) */
+/* Opciones de Registro (Preferencias ANTIGUAS - Puedes borrarlas si ya no las usas) */
 .form-options {
     display: flex;
     justify-content: space-between;
@@ -300,6 +300,60 @@ main {
 .pref-card input:checked+.pref-content .text {
     color: var(--primary);
 }
+
+/* =========================================
+   SELECTOR VISUAL (NUEVO Surf / Monte / Ambos)
+   ========================================= */
+.visual-selector {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.selector-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.selector-option input[type="radio"] {
+    display: none;
+}
+
+.selector-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.selector-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+}
+
+.selector-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.selector-option:hover .selector-content {
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+}
+
+.selector-option input[type="radio"]:checked+.selector-content {
+    border-color: var(--primary);
+    background-color: #f0f9ff;
+    color: var(--primary);
+}
+
 
 /* ==========================================================================
    4. NAVBAR APP (Logueado - Estilo Moderno)
@@ -547,6 +601,7 @@ main {
 .footer-links a:hover {
     color: var(--primary);
 }
+
 
 /* ==========================================================================
    8. RESPONSIVE Y ANIMACIONES

@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         playa: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 6c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>`,
         monte: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg>`,
         mapPin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
-        // Corazón (reutilizable)
         heart: `<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:100%;height:100%;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
     };
 
@@ -43,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const markersLayer = L.layerGroup().addTo(map);
 
     // --- ESTADO ---
-    let currentFilter = 'all';
+    let currentFilterType = 'all'; // 'all', 'playa', 'monte'
+    let currentFilterTags = []; // <--- CAMBIO: Ahora es un array para múltiples etiquetas
     let currentSearch = '';
 
     // ==========================================
@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!imgSrc) {
             const isPlaya = spot.tipo && spot.tipo.toLowerCase() === 'playa';
-            imgSrc = isPlaya
-                ? "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
-                : "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80";
+            imgSrc = isPlaya ?
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" :
+                "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80";
         }
         return imgSrc;
     }
@@ -80,16 +80,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const listContainer = document.getElementById('spots-list-container');
         listContainer.innerHTML = '';
 
+        // --- LÓGICA DE FILTRADO COMBINADA ---
         const filteredSpots = spots.filter(spot => {
-            const matchesType = (currentFilter === 'all' || spot.tipo === currentFilter);
+            // 1. Filtro Tipo
+            const matchesType = (currentFilterType === 'all' || spot.tipo === currentFilterType);
+
+            // 2. Filtro Buscador
             const searchLower = currentSearch.toLowerCase();
             const matchesSearch = spot.nombre.toLowerCase().includes(searchLower) ||
                 spot.municipio.nombre.toLowerCase().includes(searchLower);
-            return matchesType && matchesSearch;
+
+            // 3. Filtro Múltiples Etiquetas (NUEVO)
+            let matchesTag = true;
+            if (currentFilterTags.length > 0) {
+                if (!spot.etiquetas || !Array.isArray(spot.etiquetas)) {
+                    matchesTag = false;
+                } else {
+                    // .every() asegura que el spot tenga TODAS las etiquetas seleccionadas
+                    matchesTag = currentFilterTags.every(selectedTagId =>
+                        spot.etiquetas.some(spotTag => spotTag.id === selectedTagId)
+                    );
+                }
+            }
+
+            return matchesType && matchesSearch && matchesTag;
         });
 
         if (filteredSpots.length === 0) {
-            listContainer.innerHTML = '<div style="text-align:center; margin-top:30px; color:#94a3b8;"><p>No se encontraron spots.</p></div>';
+            listContainer.innerHTML = '<div style="text-align:center; margin-top:30px; color:#94a3b8;"><p>No se encontraron spots con estos filtros.</p></div>';
             return;
         }
 
@@ -116,14 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupAnchor: [0, -20]
             });
 
-            const marker = L.marker([spot.latitud, spot.longitud], { icon: customIcon });
+            const marker = L.marker([spot.latitud, spot.longitud], {
+                icon: customIcon
+            });
 
             marker.on('click', () => {
                 openSpotDrawer(spot);
             });
             markersLayer.addLayer(marker);
 
-            // --- LISTA ---
+            // --- LISTA LATERAL ---
             const item = document.createElement('div');
             item.className = 'spot-item';
             item.onclick = (e) => {
@@ -131,7 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 focusOnSpot(spot.id);
             };
 
-            // NOTA: Añadimos data-spot-id al botón para encontrarlo luego
+            let tagsHtml = '';
+            if (spot.etiquetas && spot.etiquetas.length > 0) {
+                const tagsToShow = spot.etiquetas.slice(0, 2);
+                tagsHtml = `<div style="display:flex; gap:4px; margin-top:4px;">
+                    ${tagsToShow.map(t => `<span style="font-size:0.65rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#64748b;">${t.nombre}</span>`).join('')}
+                    ${spot.etiquetas.length > 2 ? '<span style="font-size:0.65rem; color:#94a3b8;">+</span>' : ''}
+                 </div>`;
+            }
+
             item.innerHTML = `
                 <div class="spot-info-left" style="flex:1;">
                     <div class="spot-icon-wrapper ${listIconBg}">
@@ -140,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="spot-text">
                         <h4>${spot.nombre}</h4>
                         <p>${spot.municipio.nombre}</p>
+                        ${tagsHtml}
                     </div>
                 </div>
                 <button class="btn-fav-action ${heartClass}" onclick="toggleFav(${spot.id}, this)" data-spot-id="${spot.id}">
@@ -159,11 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageUrl = resolveSpotImage(spot);
         const typeLabel = isPlaya ? 'Playa / Surf' : 'Montaña / Hike';
 
-        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.latitud},${spot.longitud}`;
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=$$${spot.latitud},${spot.longitud}`;
 
-        // Calculamos estado de favorito
         const isFav = favorites.includes(spot.id);
         const favClass = isFav ? 'is-favorite' : '';
+
+        // Renderizar etiquetas en el drawer
+        let tagsDrawerHtml = '';
+        if (spot.etiquetas && spot.etiquetas.length > 0) {
+            tagsDrawerHtml = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:15px;">
+                ${spot.etiquetas.map(t =>
+                `<span style="background:#e2e8f0; padding:4px 10px; border-radius:15px; font-size:0.75rem; color:#475569;">#${t.nombre}</span>`
+            ).join('')}
+            </div>`;
+        }
 
         drawer.innerHTML = `
             <div class="drawer-header" style="background-image: url('${imageUrl}');">
@@ -175,6 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     ${spot.municipio.nombre} • ${typeLabel}
                 </div>
+
+                ${tagsDrawerHtml}
 
                 <div id="weather-widget-${spot.id}" class="weather-widget">
                     <div style="flex:1; display:flex; align-items:center; gap:10px;">
@@ -196,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="/spots/${spot.id}" class="btn-details-full">
                         Ver Ficha
                     </a>
-                    
+                      
                     <a href="${googleMapsUrl}" target="_blank" class="btn-directions-map">
                         <div style="width: 20px; height: 20px;">${SVGS.mapPin}</div>
                         Mapa
@@ -206,7 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         drawer.classList.add('open');
-        map.flyTo([spot.latitud, spot.longitud], 14, { duration: 1.2 });
+        map.flyTo([spot.latitud, spot.longitud], 14, {
+            duration: 1.2
+        });
         fetchWeather(spot.latitud, spot.longitud, `weather-widget-${spot.id}`);
     };
 
@@ -251,12 +293,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4. EVENT LISTENERS
+    // 4. EVENT LISTENERS (FILTROS)
     // ==========================================
+
     window.filterType = function (type, btn) {
-        document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+        const typeButtons = btn.parentNode.querySelectorAll('.btn-filter');
+        typeButtons.forEach(b => b.classList.remove('active'));
+
         btn.classList.add('active');
-        currentFilter = type;
+        currentFilterType = type;
+        renderMap();
+    };
+
+    // Filtro por Múltiples Etiquetas (CAMBIO APLICADO)
+    window.filterTag = function (tagId, btn) {
+        const index = currentFilterTags.indexOf(tagId);
+
+        if (index > -1) {
+            // Si el tag ya estaba seleccionado, lo quitamos del array y le quitamos la clase active
+            currentFilterTags.splice(index, 1);
+            btn.classList.remove('active');
+        } else {
+            // Si no estaba seleccionado, lo añadimos al array y le ponemos la clase active
+            currentFilterTags.push(tagId);
+            btn.classList.add('active');
+        }
+
         renderMap();
     };
 
@@ -269,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 5. LÓGICA DE FAVORITOS (Actualizada para Sincronización)
+    // 5. LÓGICA DE FAVORITOS
     // ==========================================
     window.toggleFav = function (spotId, btn) {
         if (event) event.stopPropagation();
@@ -279,18 +341,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken }
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            }
         }).then(res => res.json()).then(data => {
 
-            // 1. Actualizar el array local
             if (data.status === 'added') {
                 if (!favorites.includes(spotId)) favorites.push(spotId);
             } else {
                 favorites = favorites.filter(id => id !== spotId);
             }
 
-            // 2. SINCRONIZACIÓN VISUAL
-            // Buscamos TODOS los botones (en lista y en drawer) que tengan este data-spot-id
             const allButtons = document.querySelectorAll(`button[data-spot-id="${spotId}"]`);
 
             allButtons.forEach(button => {

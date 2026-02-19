@@ -23,7 +23,7 @@
                 </div>
             </header>
 
-            {{-- GRID DE ESTADÍSTICAS (Ahora con datos dinámicos) --}}
+            {{-- GRID DE ESTADÍSTICAS --}}
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon icon-blue">
@@ -88,7 +88,7 @@
                 </a>
 
                 {{-- Tarjeta 2: Gestionar Municipios --}}
-                <a href="#" class="action-card">
+                <a href="{{ route('admin.municipios.index') }}" class="action-card">
                     <div class="action-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,7 +106,7 @@
                 </a>
 
                 {{-- Tarjeta 3: Gestionar Usuarios --}}
-                <a href="#" class="action-card">
+                <a href="{{ route('admin.users.index') }}" class="action-card">
                     <div class="action-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -115,6 +115,25 @@
                     </div>
                     <h3>Usuarios Registrados</h3>
                     <p>Visualiza la lista de usuarios, cambia roles (Admin/Usuario) o elimina cuentas inactivas.</p>
+                    <div class="action-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </div>
+                </a>
+
+                {{-- Tarjeta 4: Tutorial en Vídeo --}}
+                <a href="{{ route('admin.tutorial') }}" class="action-card" style="border-color: var(--primary);">
+                    <div class="action-icon" style="background-color: #EFF6FF; color: var(--primary);">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3>Tutorial del Panel</h3>
+                    <p>Aprende a gestionar Spots, Municipios y Usuarios con esta guía en vídeo exclusiva para
+                        administradores.</p>
                     <div class="action-arrow">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="24" height="24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />

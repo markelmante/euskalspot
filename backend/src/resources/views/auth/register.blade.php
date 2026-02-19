@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('title', 'Únete a EuskalSpot')
 
 @section('content')
-    <section class="auth-section">
-        <div class="auth-card" style="max-width: 550px;">
+    <section class="auth-section" style="width: 100%;">
+        <div class="auth-card" style="max-width: 550px; margin: 0 auto;">
             <div class="text-center">
                 <h2>Crea tu Perfil</h2>
                 <p>Personaliza tu experiencia en EuskalSpot</p>
@@ -64,24 +64,54 @@
 
                 {{-- PREFERENCIAS --}}
                 <div class="form-group">
-                    <label>¿Qué aventura prefieres?</label>
-                    <div style="display: flex; gap: 10px; margin-top: 8px;">
-                        <label class="pref-card">
+                    <label style="margin-bottom:12px; display: block; font-weight: bold; color: #555;">¿Qué aventura
+                        prefieres?</label>
+                    <div class="visual-selector" style="display: flex; gap: 10px;">
+
+                        {{-- OPCIÓN SURF --}}
+                        <label class="selector-option" style="flex: 1;">
                             <input type="radio" name="preferencia" value="surf" {{ old('preferencia') == 'surf' ? 'checked' : '' }}>
-                            <div class="pref-content"><span class="icon">🏄‍♂️</span><span class="text">Surf</span></div>
+                            <div class="selector-content">
+                                <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                    <path
+                                        d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                    <path
+                                        d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+                                </svg>
+                                <span class="selector-text">Surf</span>
+                            </div>
                         </label>
-                        <label class="pref-card">
+
+                        {{-- OPCIÓN MONTE --}}
+                        <label class="selector-option" style="flex: 1;">
                             <input type="radio" name="preferencia" value="monte" {{ old('preferencia') == 'monte' ? 'checked' : '' }}>
-                            <div class="pref-content"><span class="icon">🥾</span><span class="text">Monte</span></div>
+                            <div class="selector-content">
+                                <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                                </svg>
+                                <span class="selector-text">Monte</span>
+                            </div>
                         </label>
-                        <label class="pref-card">
+
+                        {{-- OPCIÓN AMBOS --}}
+                        <label class="selector-option" style="flex: 1;">
                             <input type="radio" name="preferencia" value="ambos" {{ old('preferencia') == 'ambos' || old('preferencia') == null ? 'checked' : '' }}>
-                            <div class="pref-content"><span class="icon">🔄</span><span class="text">Ambos</span></div>
+                            <div class="selector-content">
+                                <svg class="selector-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.2-2.2.5-3.27.57 1.07 1.08 2.17 2.5 2.77z" />
+                                </svg>
+                                <span class="selector-text">Ambos</span>
+                            </div>
                         </label>
                     </div>
                     @error('preferencia') <span class="error-msg">{{ $message }}</span> @enderror
                 </div>
-
                 {{-- PASSWORD --}}
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div class="form-group">

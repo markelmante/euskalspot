@@ -1,6 +1,4 @@
-/* =========================================
-   DASHBOARD.CSS - LIMPIO Y OPTIMIZADO
-   ========================================= */
+
 
 :root {
     --dash-primary: #2563eb;
@@ -55,6 +53,8 @@
     border-radius: 12px;
     border: 1px solid var(--dash-border);
     box-shadow: var(--shadow-sm);
+    position: relative;
+    /* Importante para el z-index del calendario */
 }
 
 .btn-week {
@@ -134,6 +134,76 @@
     flex-grow: 1;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
+}
+
+.empty-favorites-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: #ffffff;
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    margin-top: 10px;
+}
+
+.empty-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: #f1f5f9;
+    color: #94a3b8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.empty-favorites-state h4 {
+    color: #0f172a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.empty-favorites-state p {
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    max-width: 200px;
+}
+
+.btn-explore-spots {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -1px rgba(37, 99, 235, 0.1);
+}
+
+.btn-explore-spots:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    color: white;
+}
+
+.btn-explore-spots svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-explore-spots:hover svg {
+    transform: translateX(4px);
 }
 
 /* --- TARJETAS SPOT (DRAGGABLE - SIDEBAR) --- */
@@ -698,7 +768,7 @@
     cursor: pointer;
 }
 
-/* --- FLATPICKR --- */
+/* --- FLATPICKR CUSTOM STYLES & MOBILE FIXES --- */
 .flatpickr-custom-input {
     border: none;
     background: transparent;
@@ -708,10 +778,22 @@
     width: 140px;
     cursor: pointer;
     outline: none;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
 .flatpickr-custom-input:hover {
     color: var(--dash-primary);
+}
+
+/* Overrides para la ventana del calendario */
+.flatpickr-calendar {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid var(--dash-border) !important;
+    border-radius: 12px !important;
+    font-family: inherit !important;
+    z-index: 99999 !important;
+    /* Asegura que esté por encima de todo */
 }
 
 /* --- RESPONSIVIDAD --- */
@@ -723,12 +805,19 @@
     .planner-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 15px;
     }
 
     .nav-buttons {
         width: 100%;
         justify-content: space-between;
+        padding: 8px 4px;
+    }
+
+    /* Ajuste del input en móvil para que quepa */
+    .flatpickr-custom-input {
+        width: 120px;
+        font-size: 0.9rem;
     }
 
     .planner-layout {
@@ -753,5 +842,13 @@
 
     .day-body {
         min-height: 80px;
+    }
+
+    /* FIX CRÍTICO CALENDARIO MOVIL: Centrado forzado */
+    .flatpickr-calendar {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 300px !important;
+        /* Evita que se salga de pantalla */
     }
 }

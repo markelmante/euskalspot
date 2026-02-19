@@ -1,30 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    // 1. CARRUSEL
-    // ==========================================
-    const carruselSlides = document.querySelectorAll('.carousel-slide');
-    if (carruselSlides.length > 0) {
-        let currentSlide = 0;
-
-        // Intervalo de 5 segundos como en tu script original
-        setInterval(() => {
-            carruselSlides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % carruselSlides.length;
-            carruselSlides[currentSlide].classList.add('active');
-        }, 5000);
-
-        // Solo si estamos en la home, cargamos las reseñas
-        cargarResenasHome();
-    }
+    // Cargar las reseñas al iniciar la página
+    cargarResenasHome();
 });
 
-// 2. RESEÑAS (Fetch a tu API Laravel)
+// RESEÑAS (Fetch API)
 // ==========================================
 function cargarResenasHome() {
     const contenedor = document.getElementById('contenedor-reseñas');
     if (!contenedor) return;
 
-    // AÑADIDO: Headers para asegurar respuesta JSON
     fetch('/api/reviews', {
         headers: {
             'Accept': 'application/json',
@@ -32,26 +16,26 @@ function cargarResenasHome() {
         }
     })
         .then(response => {
-            // Si el servidor da error (404, 500), lanzamos error manual
-            if (!response.ok) {
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Error ${response.status}`);
             return response.json();
         })
         .then(data => {
-            contenedor.innerHTML = '';
+            contenedor.innerHTML = ''; // Limpiar texto de "Cargando..."
 
-            // Si devuelve array vacío
             if (data.length === 0) {
-                contenedor.innerHTML = '<p style="text-align: center; width: 100%; color: #64748B;">Aún no hay reseñas compartidas.</p>';
+                contenedor.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1;">Aún no hay reseñas compartidas.</p>';
                 return;
             }
 
-            data.forEach(review => {
-                // Protección por si la API cambia nombre de campos
-                const estrellas = '⭐'.repeat(review.puntuacion || 5);
-                const autor = review.nombre || review.usuario || review.user?.name || 'Anónimo';
-                const texto = review.texto || review.content || '';
+            // Tomamos hasta 3 reseñas (o las que haya)
+            const ultimasResenas = data.slice(0, 3);
+
+            ultimasResenas.forEach(review => {
+                // Datos por defecto si faltan en la API
+                const puntuacion = review.puntuacion || 5;
+                const estrellas = '⭐'.repeat(puntuacion);
+                const autor = review.user ? review.user.name : (review.nombre || 'Usuario EuskalSpot');
+                const texto = review.content || review.texto || 'Sin comentario.';
 
                 const html = `
                 <div class="review-card">
@@ -60,15 +44,15 @@ function cargarResenasHome() {
                     <footer class="review-author">${autor}</footer>
                 </div>
             `;
-                contenedor.innerHTML += html;
+                // Insertar al final del contenedor
+                contenedor.insertAdjacentHTML('beforeend', html);
             });
         })
         .catch(err => {
             console.error('Error cargando reseñas:', err);
             contenedor.innerHTML = `
-            <div style="text-align:center; width:100%; color:#ef4444; padding: 20px;">
+            <div style="text-align:center; width: 100%; color:#ef4444;">
                 <p>⚠️ No se pudieron cargar las opiniones.</p>
-                <small style="color:#94a3b8;">(Intenta recargar la página)</small>
             </div>`;
         });
 }

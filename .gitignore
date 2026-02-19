@@ -1,0 +1,9 @@
+/mysql_data
+/node_modules
+/.env
+/vendor
+/storage/*.key
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log

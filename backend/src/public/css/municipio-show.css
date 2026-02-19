@@ -1,20 +1,19 @@
-/* public/css/municipio-show.css */
-
-/* --- VARIABLES --- */
+/* --- VARIABLES (Paleta EuskalSpot) --- */
 :root {
-    --primary: #2563EB;
-    --primary-dark: #1E40AF;
-    --dark: #0F172A;
-    --bg-page: #F8FAFC;
+    --primary: #005B8F;
+    --primary-dark: #004670;
+    --secondary: #2A8754;
+    --dark: #212529;
+    --bg-page: #F8F9FA;
     --card-bg: #FFFFFF;
-    --text-muted: #64748B;
-    --border: #E2E8F0;
+    --text-muted: #6C757D;
+    --border: #DEE2E6;
 
-    /* Etiquetas (Tags) */
-    --tag-playa-bg: #EFF6FF;
-    --tag-playa-text: #1D4ED8;
-    --tag-monte-bg: #F0FDF4;
-    --tag-monte-text: #15803D;
+    /* Etiquetas adaptadas a la paleta */
+    --tag-playa-bg: #e3f2fd;
+    --tag-playa-text: #005B8F;
+    --tag-monte-bg: #e8f5e9;
+    --tag-monte-text: #2A8754;
 
     /* Sombras Premium */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -22,7 +21,6 @@
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Animación de entrada suave */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -42,7 +40,6 @@
     font-family: 'Inter', system-ui, sans-serif;
     color: var(--dark);
     animation: fadeIn 0.5s ease-out forwards;
-    /* La página carga suavemente */
 }
 
 .show-container {
@@ -50,7 +47,7 @@
     margin: 0 auto;
 }
 
-/* --- CABECERA MINIMALISTA (Mejorada) --- */
+/* --- CABECERA --- */
 .header-simple {
     margin-bottom: 3rem;
     padding-bottom: 2rem;
@@ -72,7 +69,6 @@
 .nav-back-simple:hover {
     color: var(--primary);
     transform: translateX(-4px);
-    /* Pequeño movimiento a la izquierda */
 }
 
 .title-row {
@@ -89,7 +85,6 @@
     margin: 0;
     line-height: 1;
     letter-spacing: -0.03em;
-    /* Letras un poco más juntas (Moderno) */
 }
 
 .province-badge {
@@ -107,29 +102,24 @@
     letter-spacing: 0.05em;
 }
 
-/* --- GRID DE RESULTADOS --- */
+/* --- GRID & TARJETAS --- */
 .spots-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    /* Tarjetas un pelín más anchas */
     gap: 2.5rem;
 }
 
-/* --- TARJETA SPOT (Link total) --- */
 .spot-card-link {
     text-decoration: none;
     color: inherit;
     display: block;
-    /* Ocupa todo el espacio del grid */
 }
 
 .spot-card {
     background: white;
     border-radius: 16px;
-    /* Bordes más redondeados */
     overflow: hidden;
     border: 1px solid transparent;
-    /* Truco para transición suave de borde */
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-card);
     display: flex;
@@ -137,21 +127,17 @@
     height: 100%;
 }
 
-/* Efecto HOVER en la tarjeta completa */
 .spot-card-link:hover .spot-card {
     transform: translateY(-8px);
-    /* Levanta la tarjeta */
     box-shadow: var(--shadow-hover);
-    border-color: rgba(37, 99, 235, 0.2);
-    /* Borde azul sutil */
+    border-color: rgba(0, 91, 143, 0.2);
 }
 
-/* Imagen */
 .spot-image-wrapper {
     height: 220px;
     position: relative;
     overflow: hidden;
-    background-color: #f1f5f9;
+    background-color: var(--border);
 }
 
 .spot-image-wrapper img {
@@ -159,15 +145,12 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
-    /* Zoom lento */
 }
 
 .spot-card-link:hover .spot-image-wrapper img {
     transform: scale(1.08);
-    /* Zoom in de la imagen */
 }
 
-/* Badge (Efecto cristal) */
 .spot-type-badge {
     position: absolute;
     top: 12px;
@@ -179,21 +162,19 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     backdrop-filter: blur(8px);
-    /* Efecto borroso detrás */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .spot-type-badge.playa {
-    background: rgba(239, 246, 255, 0.95);
+    background: rgba(227, 242, 253, 0.95);
     color: var(--tag-playa-text);
 }
 
 .spot-type-badge.monte {
-    background: rgba(240, 253, 244, 0.95);
+    background: rgba(232, 245, 233, 0.95);
     color: var(--tag-monte-text);
 }
 
-/* Contenido */
 .spot-content {
     padding: 1.5rem;
     display: flex;
@@ -211,7 +192,6 @@
 
 .spot-card-link:hover .spot-name {
     color: var(--primary);
-    /* El título se pone azul al pasar el ratón */
 }
 
 .spot-desc {
@@ -225,7 +205,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* Botón "Ver detalles" simulado */
 .card-cta {
     margin-top: auto;
     font-size: 0.9rem;
@@ -242,5 +221,4 @@
 
 .spot-card-link:hover .card-cta span {
     transform: translateX(5px);
-    /* La flecha se mueve a la derecha */
 }

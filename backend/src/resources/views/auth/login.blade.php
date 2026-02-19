@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('title', 'Iniciar Sesión')
 
 @section('content')
-    <section class="auth-section">
-        <div class="auth-card">
+    <section class="auth-section" style="width: 100%;">
+        <div class="auth-card" style="margin: 0 auto;">
             <div class="text-center">
                 <h2>Bienvenido de nuevo</h2>
                 <p>Entra para gestionar tus planes de aventura.</p>
@@ -42,10 +42,6 @@
                         <input type="checkbox" name="remember" style="width:auto; margin:0;">
                         <span>Recordarme</span>
                     </label>
-
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
-                    @endif
                 </div>
 
                 <button type="submit" class="btn-cta-auth">Iniciar Sesión</button>

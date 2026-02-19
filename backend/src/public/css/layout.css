@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LAYOUT.CSS - Full Width, Iconos en Desktop y Mobile, Footer Compacto
+   LAYOUT.CSS - Estilo Profesional & Mobile First Real
    ========================================================================== */
 :root {
     --primary: #2563EB;
@@ -22,13 +22,14 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Permite que el body ocupe toda la altura */
 }
 
-/* EL SECRETO PARA EL FOOTER: Esto empuja el footer siempre al fondo */
+/* EL MAIN OCUPA TODO EL ESPACIO DISPONIBLE */
 main {
     flex: 1;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =========================================
@@ -39,7 +40,7 @@ main {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    height: 70px;
+    height: 60px;
     width: 100%;
     z-index: 100;
     display: flex;
@@ -49,8 +50,7 @@ main {
 
 .navbar-content {
     width: 100%;
-    max-width: none !important;
-    padding: 0 30px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,7 +63,7 @@ main {
 }
 
 .logo-img {
-    height: 55px;
+    height: 45px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -82,17 +82,26 @@ main {
     gap: 10px;
 }
 
+/* ESTILOS DE LOS ENLACES DEL NAV - TAMAÑO REDUCIDO */
 .nav-link {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 0.9rem;
-    padding: 8px 16px;
+    font-size: 0.85rem;
+    /* Reducido de 0.9 a 0.85 */
+    padding: 6px 14px;
+    /* Reducido el padding para que no sea tan tosco */
     border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s ease;
+}
+
+/* Forzar tamaño de iconos en los nav-links si los tienen */
+.nav-link svg {
+    width: 18px !important;
+    height: 18px !important;
 }
 
 .nav-link:hover,
@@ -101,11 +110,39 @@ main {
     background-color: var(--primary-light);
 }
 
-.nav-icon-sm {
-    width: 18px;
-    height: 18px;
-    stroke-width: 2px;
-    flex-shrink: 0;
+/* --- CLASES NUEVAS PARA LOS BOTONES DE ENTRAR Y REGISTRARSE --- */
+.btn-login {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.85rem;
+    /* Tamaño de fuente más fino */
+    padding: 6px 12px;
+    /* Menos padding */
+    transition: color 0.2s;
+}
+
+.btn-login:hover {
+    color: var(--primary);
+}
+
+.btn-register {
+    text-decoration: none;
+    background-color: #0F172A;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.85rem;
+    /* Tamaño de fuente más fino */
+    padding: 8px 20px;
+    /* Padding más proporcionado */
+    border-radius: 9999px;
+    transition: background-color 0.2s, transform 0.1s;
+    display: inline-block;
+}
+
+.btn-register:hover {
+    background-color: var(--primary);
+    color: white;
 }
 
 /* =========================================
@@ -116,12 +153,14 @@ main {
 }
 
 .profile-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    /* Ligeramente más pequeño */
+    height: 36px;
     border-radius: 50%;
     background: #DBEAFE;
     color: var(--primary);
     font-weight: 700;
+    font-size: 0.9rem;
     border: 1px solid var(--border);
     cursor: pointer;
     display: flex;
@@ -130,15 +169,17 @@ main {
     transition: box-shadow 0.2s;
 }
 
-.profile-btn:hover {
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+/* Forzar el icono dentro del botón del perfil si usa SVG en vez de iniciales */
+.profile-btn svg {
+    width: 20px !important;
+    height: 20px !important;
 }
 
 .dropdown-menu {
     position: absolute;
     right: 0;
-    top: 50px;
-    width: 220px;
+    top: 45px;
+    width: 200px;
     background: white;
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -155,7 +196,7 @@ main {
 }
 
 .dropdown-header {
-    padding: 12px 15px;
+    padding: 10px 15px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 5px;
     display: flex;
@@ -164,24 +205,24 @@ main {
 
 .user-name {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-main);
 }
 
 .user-role {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
 .dropdown-item {
     display: flex;
     width: 100%;
-    padding: 10px 15px;
+    padding: 8px 15px;
     align-items: center;
     gap: 10px;
     color: var(--text-main);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -189,16 +230,21 @@ main {
     border-radius: 6px;
 }
 
+/* AQUI ESTÁ LA CLAVE PARA EL DROPDOWN: Forzamos el tamaño del icono a 18px */
+.dropdown-item svg {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
 .dropdown-item:hover {
     background-color: var(--bg-body);
 }
 
-.text-danger {
-    color: var(--danger) !important;
-}
-
-.text-danger:hover {
-    background-color: #FEF2F2 !important;
+.dropdown-item:hover svg {
+    color: var(--primary);
+    /* Que el icono se pinte azul al pasar el ratón */
 }
 
 /* =========================================
@@ -239,7 +285,7 @@ main {
 }
 
 .side-header {
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -248,14 +294,14 @@ main {
 
 .menu-title {
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .close-btn-modern {
     background: #F1F5F9;
     border: none;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -265,16 +311,16 @@ main {
 }
 
 .side-nav-links {
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .side-link {
     text-decoration: none;
     color: var(--text-main);
-    padding: 12px;
+    padding: 10px 12px;
     border-radius: 8px;
     font-weight: 500;
     display: flex;
@@ -289,29 +335,25 @@ main {
 }
 
 .nav-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    /* Reducido un pelín en móvil también */
+    height: 20px;
     margin-right: 12px;
     stroke-width: 2px;
-}
-
-.logout-link {
-    color: var(--danger);
-    margin-top: 10px;
 }
 
 .separator {
     height: 1px;
     background-color: var(--border);
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 .hamburger-btn {
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 8px;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -319,103 +361,108 @@ main {
 }
 
 /* =========================================
-   FOOTER (Súper Compacto y de Una Sola Fila)
+   FOOTER (Diseño Claro / Blanco)
    ========================================= */
-.main-footer {
-    background: var(--bg-white);
+.site-footer {
+    background-color: var(--bg-white);
+    color: var(--text-muted);
+    padding: 50px 0 20px;
+    margin-top: auto;
+    font-size: 0.9rem;
     border-top: 1px solid var(--border);
-    padding: 25px 0;
-    width: 100%;
 }
 
-.footer-links-group {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 80px;
+.footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    padding: 0 20px;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
 }
 
-.footer-column {
+.footer-brand {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Ajuste para la columna de info (Legal/Copyright) */
-.info-column {
-    align-items: flex-start;
-    /* Alinea los textos a la izquierda en desktop */
     gap: 12px;
 }
 
-.footer-title {
+.brand-name {
+    font-size: 1.4rem;
     font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
     color: var(--text-main);
-    margin-bottom: 4px;
+    letter-spacing: -0.02em;
 }
 
-.footer-column a {
-    text-decoration: none;
-    color: var(--text-muted);
+.brand-desc {
+    line-height: 1.5;
+    margin: 0;
     font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
 }
 
-.footer-column a:hover {
+.social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.social-links .icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.social-links a:hover .icon {
     color: var(--primary);
 }
 
-.footer-copy {
+.footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.col-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-nav-col a {
     color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.9rem;
+}
+
+.footer-nav-col a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
     font-size: 0.85rem;
-    line-height: 1.5;
 }
 
 /* =========================================
-   Responsive y Utilidades
+   MEDIA QUERIES - MOBILE FIRST OPTIMIZATION
    ========================================= */
-@media (max-width: 768px) {
-    .footer-links-group {
-        gap: 30px;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .info-column {
-        align-items: center;
-        /* Centra el texto en móvil */
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.mobile-only {
-    display: block;
-}
-
-.desktop-only {
-    display: none;
-}
 
 @media (min-width: 768px) {
     .mobile-only {
@@ -424,5 +471,49 @@ main {
 
     .desktop-only {
         display: flex !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    /* --- OPTIMIZACIÓN CRÍTICA PARA MÓVIL --- */
+    .site-footer {
+        padding: 15px 0 15px 0;
+        background-color: var(--bg-white);
+    }
+
+    .footer-content {
+        display: none;
+    }
+
+    .footer-bottom {
+        padding: 0 15px;
+        border-top: none;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+    }
+
+    .footer-bottom br {
+        display: none;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

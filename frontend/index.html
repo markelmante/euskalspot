@@ -31,13 +31,7 @@
     </header>
 
     <main>
-        <section class="hero">
-            <div class="carousel-container">
-                <div class="carousel-slide active" style="background-image: url('assets-landing/img/ola.jpg');"></div>
-                <div class="carousel-slide" style="background-image: url('assets-landing/img/montaña.jpg');"></div>
-                <div class="carousel-slide" style="background-image: url('assets-landing/img/zarautz.jpg');"></div>
-            </div>
-
+        <section class="hero" style="background-image: url('assets-landing/img/montaña.jpg');">
             <div class="container hero-content">
                 <h1>Conecta con <br><span class="text-green">el Norte</span></h1>
 
@@ -51,9 +45,15 @@
         <section class="reviews-section">
             <div class="container">
                 <h2 class="section-title">Lo que dicen nuestros Usuarios</h2>
-                <div id="contenedor-reseñas" class="reviews-grid">
-                    <p style="text-align: center; width: 100%; color: #64748B;">Cargando opiniones...</p>
+
+                <div id="contenedor-reseñas" class="reviews-hybrid-container">
+                    <div class="loading-wrapper">
+                        <div class="spinner"></div>
+                        <p class="loading-text">Cargando opiniones...</p>
+                    </div>
                 </div>
+
+                <div class="mobile-swipe-indicator">Desliza para ver más &rarr;</div>
             </div>
         </section>
     </main>

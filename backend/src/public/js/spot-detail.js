@@ -15,6 +15,11 @@ const SVGS = {
     compass: `<svg fill="none" viewBox="0 0 24 24" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>`
 };
 
+// Variables globales para almacenar los datos descargados
+let globalWeatherData = null;
+let globalMarineData = null;
+let globalSpotType = null;
+
 $(document).ready(function () {
     const config = window.spotConfig;
 
@@ -23,11 +28,12 @@ $(document).ready(function () {
         return;
     }
 
+    globalSpotType = config.tipo;
+
     // 1. Inicializar Tabs
     if ($("#tabs").length) {
         $("#tabs").tabs({
             activate: function (event, ui) {
-                // Truco para que el mapa se pinte bien si estaba oculto
                 if (ui.newPanel.attr('id') === 'tab-info' && window.spotMap) {
                     setTimeout(() => { window.spotMap.invalidateSize(); }, 200);
                 }
@@ -38,30 +44,25 @@ $(document).ready(function () {
     // 2. Inicializar Mapa (Leaflet)
     if (document.getElementById('mini-map') && typeof L !== 'undefined') {
         window.spotMap = L.map('mini-map', { scrollWheelZoom: false }).setView([config.lat, config.lng], 13);
-
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(window.spotMap);
-
-        L.marker([config.lat, config.lng])
-            .addTo(window.spotMap)
+        L.marker([config.lat, config.lng]).addTo(window.spotMap)
             .bindPopup(`<b>${config.nombre}</b><br>${config.tipo}`);
     }
 
     // 3. Cargar Datos del Clima
     fetchCompleteWeatherData(config);
 
-    // 4. Lógica de Favoritos (AJAX)
+    // 4. Lógica de Favoritos
     $('#btn-fav').click(function () {
         const btn = $(this);
-        btn.toggleClass('active'); // Animación instantánea
-
+        btn.toggleClass('active');
         $.ajax({
             url: config.urlFav,
             method: 'POST',
             headers: { 'X-CSRF-TOKEN': config.csrf },
             error: () => {
-                // Si falla, revertimos el cambio
                 btn.toggleClass('active');
                 alert('Hubo un problema al guardar en favoritos.');
             }
@@ -73,29 +74,26 @@ async function fetchCompleteWeatherData(config) {
     const lat = config.lat.toFixed(4);
     const lng = config.lng.toFixed(4);
 
-    // Base URL
-    let weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`;
+    // API Tiempo: Añadimos parámetros diarios de viento para la predicción futura
+    let weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,wind_speed_10m_max,wind_direction_10m_dominant&hourly=freezinglevel_height&timezone=auto`;
+
     let promises = [];
+    promises.push($.getJSON(weatherUrl));
 
     if (config.tipo === 'playa') {
-        // Datos extra para playas
-        weatherUrl += `&hourly=windspeed_10m,winddirection_10m`;
-        let marineUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lng}&current=wave_height,wave_direction,wave_period&daily=wave_height_max&timezone=auto`;
-
-        promises.push($.getJSON(weatherUrl));
+        // API Marina: Añadimos parámetros diarios de olas para la predicción futura
+        let marineUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lng}&current=wave_height,wave_direction,wave_period&daily=wave_height_max,wave_direction_dominant,wave_period_max&timezone=auto`;
         promises.push($.getJSON(marineUrl));
-    } else {
-        // Datos extra para montes
-        weatherUrl += `&daily=precipitation_probability_max,uv_index_max&hourly=freezinglevel_height`;
-        promises.push($.getJSON(weatherUrl));
     }
 
     try {
         const results = await Promise.all(promises);
-        const weatherData = results[0];
-        const marineData = (config.tipo === 'playa' && results[1]) ? results[1] : null;
+        globalWeatherData = results[0];
+        globalMarineData = (config.tipo === 'playa' && results[1]) ? results[1] : null;
 
-        renderUI(weatherData, marineData, config.tipo);
+        // Renderizamos el día 0 (Hoy) por defecto
+        renderDashboard(0);
+        renderForecastList();
 
     } catch (error) {
         console.error("Error obteniendo clima:", error);
@@ -105,45 +103,83 @@ async function fetchCompleteWeatherData(config) {
     }
 }
 
-function renderUI(weather, marine, tipo) {
-    const current = weather.current_weather;
-    const code = current.weathercode;
+// Función principal que actualiza el Dashboard según el día seleccionado (index)
+function renderDashboard(index) {
+    const dailyW = globalWeatherData.daily;
+    const currentW = globalWeatherData.current_weather;
 
-    // A. Main Card
-    $('#main-temp').text(Math.round(current.temperature));
+    // Determinar si mostramos datos "en vivo" (Current) o predicción diaria
+    // Si index es 0 (hoy), intentamos usar 'current' para mayor precisión, 
+    // pero mezclado con daily para máximas.
+
+    let temp, code, windSpeed, windDir, waveH, waveP, rainProb, uvIndex, freezingLvl;
+    let titleText = "AHORA";
+
+    // Fecha del día seleccionado
+    const date = new Date(dailyW.time[index]);
+    if (index === 0) {
+        titleText = "AHORA";
+        // Datos actuales (más precisos para el momento)
+        temp = Math.round(currentW.temperature);
+        code = currentW.weathercode;
+        windSpeed = currentW.windspeed;
+        windDir = currentW.winddirection;
+
+        if (globalSpotType === 'playa' && globalMarineData && globalMarineData.current) {
+            waveH = globalMarineData.current.wave_height;
+            waveP = globalMarineData.current.wave_period;
+        }
+    } else {
+        // Datos futuros (Usamos máximos diarios)
+        const days = ['DOMINGO', 'LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO'];
+        titleText = days[date.getDay()]; // Nombre del día
+
+        temp = Math.round(dailyW.temperature_2m_max[index]);
+        code = dailyW.weathercode[index];
+        windSpeed = dailyW.wind_speed_10m_max[index];
+        windDir = dailyW.wind_direction_10m_dominant[index];
+
+        if (globalSpotType === 'playa' && globalMarineData) {
+            waveH = globalMarineData.daily.wave_height_max[index];
+            waveP = globalMarineData.daily.wave_period_max[index];
+        }
+    }
+
+    // Datos comunes diarios (Rain, UV)
+    rainProb = dailyW.precipitation_probability_max ? dailyW.precipitation_probability_max[index] : 0;
+    uvIndex = dailyW.uv_index_max ? dailyW.uv_index_max[index] : 0;
+
+    // Cota nieve: Es horaria. Aproximación: Tomamos el valor a las 12:00 del día (index * 24 + 12)
+    const hourIndex = (index * 24) + 12;
+    freezingLvl = (globalWeatherData.hourly && globalWeatherData.hourly.freezinglevel_height[hourIndex])
+        ? Math.round(globalWeatherData.hourly.freezinglevel_height[hourIndex])
+        : '--';
+
+    // --- ACTUALIZAR DOM ---
+
+    // 1. Cabecera Tarjeta
+    $('.w-header').text(titleText);
+    $('#main-temp').text(temp);
     $('#main-icon-container').html(getWeatherSVG(code));
     $('#weather-desc').text(getWeatherDesc(code));
 
-    // B. Stats Grid
-    if (tipo === 'playa' && marine && marine.current) {
-        updateStat(1, SVGS.wave, `${marine.current.wave_height} m`, 'Altura Olas');
-        updateStat(2, SVGS.wind, `${marine.current.wave_period} s`, 'Periodo');
-        updateStat(3, SVGS.wind, `${current.windspeed} km/h`, 'Viento');
-        updateStat(4, SVGS.compass, getDirection(current.winddirection), 'Dirección');
+    // 2. Stats Grid
+    if (globalSpotType === 'playa' && globalMarineData) {
+        updateStat(1, SVGS.wave, `${waveH} m`, 'Altura Olas');
+        updateStat(2, SVGS.wind, `${waveP} s`, 'Periodo');
+        updateStat(3, SVGS.wind, `${Math.round(windSpeed)} km/h`, 'Viento');
+        updateStat(4, SVGS.compass, getDirection(windDir), 'Dirección');
     } else {
-        const daily = weather.daily;
-        const rainProb = daily.precipitation_probability_max ? daily.precipitation_probability_max[0] : 0;
-        const uv = daily.uv_index_max ? daily.uv_index_max[0] : 0;
-        const hour = new Date().getHours();
-        const freezing = weather.hourly && weather.hourly.freezinglevel_height ? Math.round(weather.hourly.freezinglevel_height[hour]) : '--';
-
         updateStat(1, SVGS.umbrella, `${rainProb}%`, 'Prob. Lluvia');
-        updateStat(2, SVGS.sun_alert, uv, 'Índice UV');
-        updateStat(3, SVGS.freezing, `${freezing} m`, 'Cota Nieve');
-        updateStat(4, SVGS.wind, `${current.windspeed} km/h`, 'Viento');
+        updateStat(2, SVGS.sun_alert, uvIndex, 'Índice UV');
+        updateStat(3, SVGS.freezing, `${freezingLvl} m`, 'Cota Nieve');
+        updateStat(4, SVGS.wind, `${Math.round(windSpeed)} km/h`, 'Viento');
     }
-
-    // C. Forecast Semanal
-    renderForecast(weather.daily);
 }
 
-function updateStat(id, svg, val, label) {
-    $(`#s${id}-icon`).html(svg);
-    $(`#s${id}-val`).text(val);
-    $(`#s${id}-label`).text(label);
-}
-
-function renderForecast(daily) {
+// Genera la lista de días abajo y añade el evento CLICK
+function renderForecastList() {
+    const daily = globalWeatherData.daily;
     let html = '';
     const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
@@ -155,8 +191,9 @@ function renderForecast(daily) {
         const max = Math.round(daily.temperature_2m_max[i]);
         const min = Math.round(daily.temperature_2m_min[i]);
 
+        // Añadimos onclick="selectDay(i)" y una clase dinámica para el seleccionado
         html += `
-            <div class="day-card">
+            <div class="day-card" id="day-card-${i}" onclick="selectDay(${i})">
                 <span class="day-name">${dayName}</span>
                 <div class="day-icon" style="width:40px; margin:0 auto 10px auto">${icon}</div>
                 <div class="day-temp">${max}°</div>
@@ -164,6 +201,25 @@ function renderForecast(daily) {
             </div>`;
     }
     $('#weekly-forecast').html(html);
+
+    // Marcar el primero como seleccionado
+    selectDay(0);
+}
+
+// Función que se llama al hacer click en un día
+window.selectDay = function (index) {
+    // 1. Actualizar Dashboard
+    renderDashboard(index);
+
+    // 2. Actualizar estilos visuales (borde azul)
+    $('.day-card').removeClass('selected');
+    $(`#day-card-${index}`).addClass('selected');
+}
+
+function updateStat(id, svg, val, label) {
+    $(`#s${id}-icon`).html(svg);
+    $(`#s${id}-val`).text(val);
+    $(`#s${id}-label`).text(label);
 }
 
 function getWeatherSVG(code) {
@@ -187,6 +243,6 @@ function getWeatherDesc(code) {
 }
 
 function getDirection(deg) {
-    const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
+    const dirs = ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'];
     return dirs[Math.round(deg / 45) % 8];
 }
