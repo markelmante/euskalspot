@@ -6,8 +6,8 @@
 
             {{-- CABECERA MINIMALISTA --}}
             <div class="header-simple">
-                <a href="{{ route('municipios.index') }}" class="nav-back-simple">
-                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <a href="{{ route('municipios.index') }}" class="nav-back-simple" aria-label="Volver al listado de todos los municipios">
+                    <svg aria-hidden="true" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                     Volver al listado
@@ -16,7 +16,7 @@
                 <div class="title-row mt-3">
                     <h1 class="muni-title">{{ $municipio->nombre }}</h1>
 
-                    <span class="province-badge">
+                    <span class="province-badge" aria-label="Provincia: {{ $municipio->provincia ?? 'Euskadi' }}">
                         {{ $municipio->provincia ?? 'Euskadi' }}
                     </span>
                 </div>
@@ -32,7 +32,8 @@
                 @forelse($municipio->spots as $spot)
 
                     {{-- ENLACE A DETALLE DEL SPOT --}}
-                    <a href="{{ route('spots.show', $spot->id) }}" class="spot-card-link">
+                    <a href="{{ route('spots.show', $spot->id) }}" class="spot-card-link"
+                       aria-label="Ver detalles del spot {{ $spot->nombre }}, categorizado como {{ $spot->tipo }}">
                         <div class="spot-card">
                             <div class="spot-image-wrapper">
                                 {{-- LÓGICA DE IMAGEN --}}
@@ -58,19 +59,19 @@
                                     }
                                 @endphp
 
-                                <img src="{{ $imgSrc }}" alt="{{ $spot->nombre }}" loading="lazy">
+                                <img src="{{ $imgSrc }}" alt="" aria-hidden="true" loading="lazy">
 
-                                <span class="spot-type-badge {{ strtolower($spot->tipo) }}">
+                                <span class="spot-type-badge {{ strtolower($spot->tipo) }}" aria-hidden="true">
                                     {{ ucfirst($spot->tipo) }}
                                 </span>
                             </div>
 
-                            <div class="spot-content">
+                            <div class="spot-content" aria-hidden="true">
                                 <h4 class="spot-name">{{ $spot->nombre }}</h4>
                                 <p class="spot-desc">{{ $spot->descripcion }}</p>
 
                                 <div class="card-cta">
-                                    Ver detalles <span>&rarr;</span>
+                                    Ver detalles <span aria-hidden="true">&rarr;</span>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +79,9 @@
 
                 @empty
                     <div
-                        class="col-span-full flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50">
-                        <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="col-span-full flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50"
+                        role="status" aria-live="polite">
+                        <svg aria-hidden="true" class="w-12 h-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"

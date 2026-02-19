@@ -15,7 +15,7 @@ use App\Http\Controllers\AdminUserController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::view('/accesibilidad', 'accesibilidad')->name('accesibilidad');
 // --- RUTAS PROTEGIDAS ---
 Route::middleware(['auth', 'verified'])->group(function () {
 
